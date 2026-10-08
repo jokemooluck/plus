@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050910">
+  <meta name="color-scheme" content="dark">
+  <title>JOKEMOO Lucky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <section class="screen code-screen active" id="codeScreen">
+      <div class="code-wrap">
+        <section class="welcome-panel">
+          <img class="brand-logo" src="logo.png" alt="JOKEMOO">
+          <span class="eyebrow">JOKEMOO • LUCKY</span>
+          <h1>กรอกโค้ด !!<br><span>แล้วลุ้นรับรางวัลได้ทันที</span></h1>
+          <p>กรอกโค้ดที่ได้รับจากทางร้าน เมื่อชื้อสินค้า</p>
+          <div class="brand-stroke" aria-hidden="true"><span></span></div>
+        </section>
+
+        <section class="code-card">
+          <div class="card-head">
+            <div>
+              <span class="section-kicker">กรอกโค้ดของคุณ</span>
+              <h2>ลุ้นรับของรางวัล</h2>
+            </div>
+            <div class="ready-pill" id="readyPill"><i></i><span>กำลังเตรียม</span></div>
+          </div>
+
+          <form id="codeForm" autocomplete="off">
+            <label for="codeInput">โค้ดที่คุณลูกค้าได้รับ</label>
+            <div class="code-input-wrap">
+              <span class="input-icon">#</span>
+              <input id="codeInput" type="text" maxlength="40" placeholder="กรอกโค้ดที่นี่" autocomplete="off" spellcheck="false">
+              <button type="button" class="clear-code" id="clearCode" aria-label="ล้างโค้ด">×</button>
+            </div>
+            <button class="primary-action" id="checkCodeBtn" type="submit">
+              <span class="action-label">ตรวจสอบโค้ด</span>
+              <span class="action-arrow">→</span>
+              <span class="button-loader" aria-hidden="true"></span>
+            </button>
+            <button class="history-entry" id="codeHistoryBtn" type="button">
+              <span class="history-entry-icon">↺</span>
+              <span>ดูประวัติการสุ่ม</span>
+              <b>→</b>
+            </button>
+          </form>
+
+          <div class="customer-actions">
+            <a class="line-contact" href="https://line.me/R/ti/p/@jokemoo" target="_blank" rel="noopener noreferrer" aria-label="ติดต่อแอดมินผ่าน LINE">
+              <span class="line-contact-icon" aria-hidden="true"><span>LINE</span></span>
+              <span class="line-contact-copy">
+                <small>ต้องการความช่วยเหลือ?</small>
+                <strong>ติดต่อร้านผ่าน LINE</strong>
+              </span>
+              <span class="line-contact-id">@jokemoo</span>
+              <span class="line-contact-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="form-message" id="formMessage" role="status"></div>
+          <div class="safe-note"><span>●</span>  กรุณากรอกโค้ดตามที่ได้รับแบบถูกต้อง 100%</div>
+        </section>
+      </div>
+    </section>
+
+    <section class="screen wheel-screen" id="wheelScreen" aria-hidden="true">
+      <header class="wheel-topbar">
+        <div class="mini-brand">
+          <img src="logo.png" alt="JOKEMOO">
+        </div>
+        <button class="text-button" id="changeCodeBtn">ใช้โค้ดใหม่อีกครั้ง</button>
+      </header>
+
+      <div class="wheel-layout">
+        <section class="wheel-panel">
+          <div class="wheel-hero">
+            <div>
+              <span class="section-kicker">วงล้อของคุณลูกค้า</span>
+              <h2>หมุนวงล้อของคุณลูกค้าได้เลย !!</h2>
+              <p>กดหมุนเพื่อลุ้นรับรางวัลมากหมายได้เลย</p>
+            </div>
+            <span class="wheel-live"><i></i> พร้อมใช้งาน</span>
+          </div>
+          <div class="wheel-panel-head">
+            <div class="code-badge">
+              <small>โค้ดที่ใช้งานตอนนี้</small>
+              <strong id="activeCode">-</strong>
+            </div>
+            <div class="spin-badge">
+              <small>สิทธิ์คงเหลือ</small>
+              <strong><span id="remainingSpins">0</span><em>ครั้ง</em></strong>
+            </div>
+          </div>
+
+          <div class="wheel-stage">
+            <div class="pointer" aria-hidden="true"><span></span></div>
+            <div class="wheel-frame">
+              <div class="wheel-disk" id="wheelDisk">
+                <canvas id="wheelCanvas" width="640" height="640"></canvas>
+                <div class="wheel-hub"><img src="logo.png" alt=""></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="spin-action" id="spinBtn" type="button">
+            <span class="spin-label">หมุนวงล้อ</span>
+            <small>ใช้ 1 สิทธิ์</small>
+          </button>
+          <div class="wheel-message" id="wheelMessage">พร้อมแล้ว กดหมุนแล้วลุ้นได้เลย !!!</div>
+          <div class="return-notice" id="returnNotice" hidden>
+            <span class="return-icon">↻</span>
+            <div><strong>คุณลูกค้าใช้สิทธิ์ครบแล้ว</strong><p>เรากำลังพาคุณไปหน้าใส่โค้ดอีกครั้งใน <b id="returnCountdown">60</b> วินาที</p></div>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <div class="side-card chance-card">
+            <span class="section-kicker">สิทธิ์ในการสุ่ม</span>
+            <p>การหมุนแต่ละครั้งจะใช้สิทธิ์ของโค้ดนี้ 1 ครั้ง</p>
+            <div class="progress-line"><span id="progressBar"></span></div>
+            <div class="progress-copy"><span>ใช้ไปแล้ว</span><strong id="usedCountText">0 ครั้ง</strong></div>
+
+            <button class="prize-toggle" id="prizeToggle" type="button" aria-expanded="false" aria-controls="prizeCollapse">
+              <span class="prize-toggle-title"><i></i><b>ดูของรางวัลที่มีในวงล้อ</b></span>
+              <span class="prize-toggle-meta"><small id="prizeCount">0 รายการ</small><b>></span>
+            </button>
+            <div class="prize-collapse" id="prizeCollapse">
+              <div class="prize-list" id="prizeList"></div>
+            </div>
+            <button class="wheel-history-btn" id="wheelHistoryBtn" type="button"><span>↺</span><b>ดูประวัติการสุ่มของโค้ดนี้</b><i>→</i></button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="screen-transition" id="screenTransition" aria-hidden="true">
+    <div class="transition-ring"><span></span><i></i></div>
+    <strong>พร้อมลุ้นแล้วหรือยัง !?</strong>
+    <small>เรากำลังเปิดวงล้อของคุณ</small>
+  </div>
+
+  <div class="result-modal" id="resultModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="result-card">
+      <div class="result-burst" id="resultBurst"></div>
+      <div class="result-logo"><img src="logo.png" alt="JOKEMOO"></div>
+      <span class="result-kicker">!! JOKEMOO Lucky DAY!!</span>
+      <h2 id="resultTitle">ยินดีด้วยคุณได้รับ !</h2>
+      <div class="result-prize" id="resultPrize">-</div>
+      <p id="resultText">บันทึกผลการสุ่มเรียบร้อยแล้ว</p>
+      <div class="claim-guide" id="claimGuide" hidden>
+        <div class="claim-guide-icon">📲</div>
+        <div><strong>แคปหน้าจอนี้ไว้</strong><p>จากนั้นกดปุ่ม LINE เพื่อแจ้งรางวัลกับแอดมิน</p></div>
+      </div>
+      <a class="claim-line" id="claimLineBtn" href="https://line.me/R/ti/p/@jokemoo" target="_blank" rel="noopener noreferrer" hidden><span>LINE</span><b>แจ้งแอดมินเพื่อรับรางวัล</b><i>↗</i></a>
+      <div class="result-return" id="resultReturn" hidden>เรากำลังพาคุณไปหน้าใส่โค้ดอีกครั้งใน <b id="resultCountdown">60</b> วินาที</div>
+      <button class="primary-action modal-action" id="closeResultBtn" type="button"><span>รับทราบ</span><span>✓</span></button>
+    </div>
+  </div>
+
+
+  <div class="history-modal" id="historyModal" aria-hidden="true">
+    <div class="history-modal-backdrop"></div>
+    <div class="history-card" role="dialog" aria-modal="true" aria-labelledby="historyModalTitle">
+      <div class="history-card-head">
+        <div><span class="section-kicker">SPIN HISTORY</span><h2 id="historyModalTitle">ประวัติการสุ่ม</h2><p id="historyModalCode">-</p></div>
+        <button class="history-close" id="historyCloseBtn" type="button" aria-label="ปิด">×</button>
+      </div>
+      <div class="history-card-body" id="historyModalBody"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="firebase/firebase-config.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

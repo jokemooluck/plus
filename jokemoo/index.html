@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070c">
+  <meta name="color-scheme" content="dark">
+  <title>JOKEMOO Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/jokemoo.css">
+  <link rel="icon" type="image/png" href="../logo.png">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><i></i><i></i></div>
+
+  <section class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <img class="login-logo" src="../logo.png" alt="JOKEMOO">
+      <span class="eyebrow">JOKEMOO CONTROL</span>
+      <h1>เข้าสู่ระบบ</h1>
+      <p>จัดการโค้ด ของรางวัล และข้อมูลการสุ่ม</p>
+      <form id="loginForm">
+        <label>USERNAME</label>
+        <input id="loginUser" autocomplete="username" required>
+        <label>PASSWORD</label>
+        <div class="password-row">
+          <input id="loginPass" type="password" autocomplete="current-password" required>
+          <button type="button" id="togglePass">แสดง</button>
+        </div>
+        <button class="btn primary full" id="loginBtn" type="submit">เข้าสู่ระบบ</button>
+      </form>
+      <button class="bootstrap" id="bootstrapBtn" type="button" hidden>ตั้งค่าบัญชี devbank ครั้งแรกบนเครื่องนี้</button>
+      <div class="login-message" id="loginMessage"></div>
+    </div>
+  </section>
+
+  <div class="admin-app" id="adminApp" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="../logo.png" alt="JOKEMOO">
+        <div><strong>JOKEMOO</strong><span>CONTROL</span></div>
+      </div>
+      <nav>
+        <button class="nav-item active" data-page="overview"><b></b><span>ภาพรวม</span></button>
+        <button class="nav-item" data-page="codes"><b></b><span>สร้างโค้ด</span></button>
+        <button class="nav-item" data-page="history"><b></b><span>ประวัติโค้ด</span></button>
+        <button class="nav-item" data-page="prizes"><b></b><span>ของรางวัล & เรท</span></button>
+        <button class="nav-item" data-page="accounts"><b></b><span>บัญชีผู้ดูแล</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="admin-user"><span>D</span><div><small>เข้าสู่ระบบเป็น</small><strong id="sidebarUsername">devbank</strong></div></div>
+        <button class="logout" id="logoutBtn">ออกจากระบบ</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="top-left">
+          <button class="menu" id="menuBtn">☰</button>
+          <div><h2 id="pageTitle">ภาพรวม</h2><p id="pageSub">สรุปข้อมูลล่าสุด</p></div>
+        </div>
+        <div class="top-actions">
+          <span class="live"><i></i> LIVE</span>
+          <a class="site-link" href="index.html" target="_blank">เปิดหน้าสุ่ม ↗</a>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="page active" id="page-overview">
+          <div class="overview-datebar">
+            <div class="overview-datecopy">
+              <span class="eyebrow">DAILY HISTORY</span>
+              <div><h3>สรุปประวัติรายวัน</h3><p>ข้อมูลจากประวัติโค้ดตามวันที่ที่เลือก</p></div>
+            </div>
+            <div class="overview-datecontrols">
+              <label class="overview-datefield" for="overviewDate"><span>วันที่ต้องการดู</span><input type="date" id="overviewDate"></label>
+              <button class="btn soft overview-today" id="overviewTodayBtn" type="button">วันนี้</button>
+            </div>
+          </div>
+          <div class="overview-datecaption" id="overviewDateCaption">กำลังแสดงข้อมูลวันนี้</div>
+
+          <div class="stats-grid">
+            <article class="stat"><span>โค้ดที่สร้าง</span><strong id="statCodes">0</strong><small>ในวันที่เลือก</small></article>
+            <article class="stat"><span>โค้ดที่เริ่มใช้</span><strong id="statUsed">0</strong><small>ในวันที่เลือก</small></article>
+            <article class="stat"><span>การสุ่มทั้งหมด</span><strong id="statSpins">0</strong><small>ในวันที่เลือก</small></article>
+            <article class="stat"><span>ออกบ่อยที่สุด</span><strong class="text-stat" id="statTop">-</strong><small>จากประวัติวันที่เลือก</small></article>
+          </div>
+
+          <div class="chart-grid">
+            <article class="panel"><div class="panel-head"><div><h3>สัดส่วนผลที่ออก</h3><p>คิดจากประวัติการสุ่มในวันที่เลือก</p></div><span class="tag">HISTORY</span></div><div class="chart-box"><canvas id="chanceChart"></canvas><div class="chart-empty" id="chanceChartEmpty">ยังไม่มีผลการสุ่มในวันที่เลือก</div></div></article>
+            <article class="panel"><div class="panel-head"><div><h3>จำนวนผลที่ออกจริง</h3><p>จำนวนครั้งของแต่ละรางวัลในวันที่เลือก</p></div></div><div class="chart-box"><canvas id="resultChart"></canvas><div class="chart-empty" id="resultChartEmpty">ยังไม่มีผลการสุ่มในวันที่เลือก</div></div></article>
+          </div>
+
+          <article class="panel table-panel">
+            <div class="panel-head wrap"><div><h3>รายการในวันที่เลือก</h3><p id="overviewTableSub">ดึงจาก code_history แบบเรียลไทม์</p></div><input class="search" id="overviewSearch" placeholder="ค้นหาโค้ด / รางวัล..."></div>
+            <div class="table-wrap"><table><thead><tr><th>โค้ด</th><th>สถานะล่าสุด</th><th>สร้างเมื่อ</th><th>เริ่มใช้</th><th>สุ่มในวันที่เลือก</th><th>ผลล่าสุดของวัน</th></tr></thead><tbody id="overviewBody"></tbody></table></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-codes">
+          <div class="create-grid">
+            <article class="panel create-card">
+              <div class="panel-head"><div><h3>สร้างโค้ดใหม่</h3><p>สร้างโค้ดพร้อมกำหนดจำนวนสิทธิ์</p></div></div>
+              <div class="fields two">
+                <div><label>จำนวนสิทธิ์</label><input id="spinCount" type="number" min="1" max="99" value="1"></div>
+                <div class="lifetime-box"><label>อายุโค้ด</label><div class="lifetime-value"><strong>24 ชั่วโมง</strong><small>หมดอายุอัตโนมัติตามเวลาที่สร้าง</small></div></div>
+                <div class="wide"><label>หมายเหตุ</label><input id="codeNote" placeholder="เช่น โปร 30 วัน"></div>
+              </div>
+              <button class="btn primary full" id="createCodeBtn">＋ สร้างโค้ด</button>
+              <div class="generated" id="generatedBox"><small>โค้ดที่สร้างล่าสุด</small><strong id="generatedCode">-</strong><button class="btn soft" id="copyGenerated" disabled>คัดลอก</button></div>
+            </article>
+
+            <article class="panel compact-info">
+              <h3>ข้อมูลที่บันทึก</h3>
+              <div class="info-row"><b>01</b><span><strong>วันและเวลาที่สร้าง</strong><small>บันทึกอัตโนมัติ</small></span></div>
+              <div class="info-row"><b>02</b><span><strong>วันที่เริ่มใช้โค้ด</strong><small>เมื่อถูกตรวจผ่านครั้งแรก</small></span></div>
+              <div class="info-row"><b>03</b><span><strong>หมดอายุอัตโนมัติ</strong><small>สร้าง 04:03 → หมดวันถัดไป 04:03</small></span></div>
+              <div class="info-row"><b>04</b><span><strong>ประวัติผลการสุ่ม</strong><small>แสดงทุกผลของโค้ด</small></span></div>
+            </article>
+          </div>
+
+          <article class="panel table-panel">
+            <div class="panel-head wrap code-list-head">
+              <div><h3>โค้ดทั้งหมด</h3><p>ค้นหา ดูผล คัดลอก และจัดการโค้ด</p></div>
+              <div class="code-tools">
+                <input class="search" id="codeSearch" placeholder="ค้นหาโค้ด / หมายเหตุ...">
+                <button class="btn warning" id="deleteExpiredCodesBtn" type="button">ลบโค้ดหมดอายุ</button>
+                <button class="btn danger" id="deleteAllCodesBtn" type="button">ลบโค้ดทั้งหมด</button>
+              </div>
+            </div>
+            <div class="table-wrap"><table><thead><tr><th>โค้ด</th><th>หมายเหตุ</th><th>สร้างเมื่อ</th><th>หมดอายุ</th><th>เริ่มใช้</th><th>ทั้งหมด</th><th>เหลือ</th><th>ของที่ได้</th><th></th></tr></thead><tbody id="codesBody"></tbody></table></div>
+          </article>
+        </section>
+
+
+        <section class="page" id="page-history">
+          <article class="panel history-intro">
+            <div class="panel-head wrap">
+              <div><h3>ประวัติโค้ดทั้งหมด</h3><p>เก็บแยกจากรายการโค้ดปัจจุบัน ประวัติจะยังอยู่แม้ลบโค้ดออกจากหน้าสร้างโค้ด</p></div>
+              <div class="history-summary"><span>ทั้งหมด</span><strong id="historyCount">0</strong><small>โค้ด</small></div>
+            </div>
+            <div class="history-note"><i></i><span>ประวัติในหน้านี้จะหายเมื่อเอกสารใน <b>code_history</b> ถูกลบจาก Firebase เท่านั้น</span></div>
+          </article>
+          <article class="panel table-panel">
+            <div class="panel-head wrap">
+              <div><h3>รายการประวัติ</h3><p>ค้นหาโค้ด ดูวันสร้าง วันใช้งาน และผลการสุ่มทุกครั้ง</p></div>
+              <input class="search" id="historySearch" placeholder="ค้นหาโค้ด / หมายเหตุ / รางวัล...">
+            </div>
+            <div class="table-wrap"><table><thead><tr><th>โค้ด</th><th>สถานะ</th><th>สร้างเมื่อ</th><th>เริ่มใช้</th><th>ลบจากรายการเมื่อ</th><th>สิทธิ์</th><th>ผลการสุ่ม</th><th></th></tr></thead><tbody id="historyBody"></tbody></table></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-prizes">
+          <div class="rate-grid">
+            <article class="panel">
+              <div class="panel-head wrap"><div><h3>ของรางวัล & เรทการออก</h3><p>ใส่น้ำหนักได้อิสระ ระบบจะคำนวณเปอร์เซ็นต์จริงให้เอง</p></div><button class="btn soft" id="addPrizeBtn">＋ เพิ่มรางวัล</button></div>
+              <div class="rate-tip" id="rateTip">ใส่น้ำหนักของแต่ละรางวัลได้อิสระ ตัวเลขรวมจะเกิน 100 ก็ได้ ระบบจะหารสัดส่วนเป็น 100% ให้อัตโนมัติ</div>
+              <div class="rate-head"><span>#</span><span>ชื่อรางวัล</span><span>น้ำหนัก</span><span>โอกาสจริง</span><span>เปิดใช้</span><span></span></div>
+              <div class="rate-rows" id="rateRows"></div>
+              <div class="rate-footer"><div><small>น้ำหนักรวม</small><strong id="weightTotal">0</strong></div><div><button class="btn soft" id="defaultRatesBtn">ค่าเริ่มต้น</button><button class="btn primary" id="saveRatesBtn">บันทึก</button></div></div>
+            </article>
+
+            <article class="panel preview-card">
+              <div class="panel-head"><div><h3>เปอร์เซ็นต์ที่ใช้จริง</h3><p>คำนวณอัตโนมัติจากสัดส่วนน้ำหนักทั้งหมด</p></div></div>
+              <div id="chancePreview" class="chance-preview"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="page-accounts">
+          <div class="accounts-grid">
+            <article class="panel">
+              <div class="panel-head"><div><h3>สร้างบัญชีผู้ดูแล</h3><p>เพิ่ม Username และ Password สำหรับหลังบ้าน</p></div></div>
+              <div class="fields"><div><label>USERNAME</label><input id="newAdminUser" placeholder="เช่น staff01"></div><div><label>PASSWORD</label><input id="newAdminPass" type="password" placeholder="อย่างน้อย 8 ตัวอักษร"></div></div>
+              <button class="btn primary full" id="createAdminBtn">สร้างบัญชีผู้ดูแล</button>
+            </article>
+            <article class="panel table-panel"><div class="panel-head"><div><h3>ผู้ดูแลเพิ่มเติม</h3><p>บัญชีที่ได้รับสิทธิ์เข้าหลังบ้าน</p></div></div><div class="table-wrap"><table><thead><tr><th>Username</th><th>Email</th><th>สร้างเมื่อ</th><th>สร้างโดย</th><th></th></tr></thead><tbody id="adminsBody"></tbody></table></div></article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+
+  <div class="admin-modal" id="confirmModal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-confirm></div>
+    <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="confirm-icon">!</div>
+      <span class="confirm-kicker">ยืนยันการทำรายการ</span>
+      <h3 id="confirmTitle">ยืนยันการลบ</h3>
+      <p id="confirmText">รายการที่ลบจะไม่สามารถย้อนกลับได้</p>
+      <div class="confirm-actions">
+        <button class="btn soft" id="confirmCancelBtn" type="button">ยกเลิก</button>
+        <button class="btn danger confirm-danger" id="confirmOkBtn" type="button">ยืนยันลบ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-modal" id="historyDetailModal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-history-detail></div>
+    <div class="history-detail-card" role="dialog" aria-modal="true" aria-labelledby="historyDetailTitle">
+      <div class="detail-head">
+        <div><span class="confirm-kicker">CODE HISTORY</span><h3 id="historyDetailTitle">รายละเอียดโค้ด</h3></div>
+        <button class="modal-x" id="historyDetailClose" type="button" aria-label="ปิด">×</button>
+      </div>
+      <div class="history-detail-body" id="historyDetailBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="../firebase/firebase-config.js"></script>
+  <script src="../js/jokemoo.js"></script>
+</body>
+</html>
