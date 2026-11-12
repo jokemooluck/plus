@@ -1,0 +1,51 @@
+/* v17: refined floating notifications and custom role menu, iOS drawer fix */
+body .jm-toast-host {
+  position:fixed!important;inset:auto!important;right:auto!important;bottom:auto!important;
+  max-width:calc(100vw - 24px)!important;max-height:none!important;
+  margin:0!important;padding:0!important;overflow:visible!important;
+  z-index:420!important;pointer-events:none!important;
+  transition:none!important;contain:none!important;
+}
+body .jm-toast-host.is-visible {margin:0!important;max-height:none!important;overflow:visible!important;pointer-events:none!important}
+body .jm-toast-host .jm-toast {
+  width:100%!important;min-height:67px;max-width:100%;padding:12px 13px!important;
+  border-radius:15px!important;box-sizing:border-box;pointer-events:auto;
+  box-shadow:0 13px 32px rgba(0,0,0,.34)!important;
+  transform:translate3d(7px,-5px,0) scale(.985);
+  transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+}
+body .jm-toast-host .jm-toast.jm-toast-open {transform:translate3d(0,0,0) scale(1)}
+body .jm-toast-host .jm-toast-mark{width:34px;height:34px;flex:0 0 34px;font-size:18px;border-radius:10px}
+body .jm-toast-host .jm-toast-heading{font-size:12.5px}
+body .jm-toast-host .jm-toast-description{font-size:11px;line-height:1.5;max-height:4.5em;overflow:hidden}
+body .jm-toast-host .jm-toast-close{width:30px;height:30px;flex:0 0 30px;font-size:21px}
+@media(max-width:600px){body .jm-toast-host .jm-toast{min-height:62px;padding:10px 11px!important;gap:10px}}
+
+/* Custom popup instead of the browser/OS native select options */
+#roleCreateModal .jm-role-picker{display:block;position:relative;width:100%;min-width:0}
+#roleCreateModal .jm-role-native{position:absolute!important;width:1px!important;height:1px!important;min-width:0!important;min-height:0!important;opacity:0!important;pointer-events:none!important;clip-path:inset(50%)!important;padding:0!important;border:0!important;overflow:hidden!important}
+#roleCreateModal .jm-role-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:47px;min-height:47px;padding:0 14px;border-radius:12px;border:1px solid #29475f;background:linear-gradient(180deg,#0e1f30,#091622);color:#eaf6ff;text-align:left;font:700 13px Inter,'IBM Plex Sans Thai',sans-serif;cursor:pointer;transition:border-color .16s,background-color .16s,box-shadow .16s}
+#roleCreateModal .jm-role-trigger:hover,#roleCreateModal .jm-role-trigger.is-open{border-color:#3995ed;background:#122941;box-shadow:0 0 0 3px rgba(37,141,255,.10)}
+#roleCreateModal .jm-role-trigger:focus-visible,.jm-role-choice:focus-visible{outline:2px solid #7bbfff;outline-offset:2px}
+#roleCreateModal .jm-role-trigger svg{flex:none;color:#85afc9;transition:transform .18s}
+#roleCreateModal .jm-role-trigger.is-open svg{transform:rotate(180deg)}
+.jm-role-options{position:fixed;display:grid;gap:3px;padding:6px;z-index:520;border:1px solid #315573;border-radius:12px;background:#0d1a29;box-shadow:0 18px 48px #000b;box-sizing:border-box;animation:jm-role-show .16s cubic-bezier(.2,.75,.2,1)}
+.jm-role-options[hidden]{display:none!important}
+.jm-role-choice{width:100%;min-height:42px;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:7px 11px;text-align:left;border:0;border-radius:8px;background:transparent;color:#b6cce0;font:650 12px Inter,'IBM Plex Sans Thai',sans-serif;cursor:pointer;transition:background-color .16s,color .16s}
+.jm-role-choice:hover,.jm-role-choice:focus-visible{background:#172f47;color:#fff}
+.jm-role-choice.is-selected{background:#163d60;color:#c1e6ff}
+.jm-role-choice:disabled{cursor:not-allowed;opacity:.36}
+.jm-role-choice-text{min-width:52px}.jm-role-choice small{font:500 10px 'IBM Plex Sans Thai',sans-serif;color:#6f93af;margin-right:auto}
+.jm-role-check{opacity:0;color:#68b8ff;font-size:15px}.jm-role-choice.is-selected .jm-role-check{opacity:1}
+@keyframes jm-role-show{from{opacity:.4;transform:translateY(4px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Mobile: the arrival animation must not override drawer visibility. */
+@media(max-width:960px){
+ .jm-admin-arrived .sidebar{animation:none!important}
+ .sidebar:not(.open){transform:translateX(-105%)!important}
+ .sidebar.open{transform:translateX(0)!important}
+ .topbar{position:relative!important;top:auto!important;z-index:10}
+ .main{transform:none!important}
+ .jm-admin-arrived .main{animation:none!important}
+}
+@media(prefers-reduced-motion:reduce){.jm-role-options{animation:none}body .jm-toast-host .jm-toast{transition:none!important}}

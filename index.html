@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#050910">
   <meta name="color-scheme" content="dark">
   <title>JOKEMOO Lucky</title>
@@ -10,6 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/site-theme.css">
+  <link rel="stylesheet" href="css/shared-notifications.css">
+  <link rel="stylesheet" href="css/performance-v11.css">
+  <link rel="stylesheet" href="css/customer-history-refresh.css">
+  <link rel="stylesheet" href="css/mobile-safari-v13.css">
+  <link rel="stylesheet" href="css/notification-everywhere-v14.css">
+  <link rel="stylesheet" href="css/admin-ui-v16.css">
+  <link rel="stylesheet" href="css/ui-fixes-v17.css">
+  <link rel="stylesheet" href="css/refinements-v19.css">
   <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
@@ -46,11 +55,6 @@
               <span class="action-arrow">→</span>
               <span class="button-loader" aria-hidden="true"></span>
             </button>
-            <button class="history-entry" id="codeHistoryBtn" type="button">
-              <span class="history-entry-icon">↺</span>
-              <span>ดูประวัติการสุ่ม</span>
-              <b>→</b>
-            </button>
           </form>
 
           <div class="customer-actions">
@@ -63,6 +67,14 @@
               <span class="line-contact-id">@jokemoo</span>
               <span class="line-contact-arrow" aria-hidden="true">↗</span>
             </a>
+          </div>
+
+          <div class="history-action-section">
+            <button class="history-entry" id="codeHistoryBtn" type="button" aria-haspopup="dialog" aria-controls="historyModal">
+              <span class="history-entry-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 4v7h7"/><path d="M12 7v5l3 2"/></svg></span>
+              <span class="history-entry-copy"><strong>ดูประวัติการสุ่ม</strong></span>
+              <b aria-hidden="true">↗</b>
+            </button>
           </div>
 
           <div class="form-message" id="formMessage" role="status"></div>
@@ -183,18 +195,22 @@
     <div class="history-modal-backdrop"></div>
     <div class="history-card" role="dialog" aria-modal="true" aria-labelledby="historyModalTitle">
       <div class="history-card-head">
-        <div><span class="section-kicker">SPIN HISTORY</span><h2 id="historyModalTitle">ประวัติการสุ่ม</h2><p id="historyModalCode">-</p></div>
-        <button class="history-close" id="historyCloseBtn" type="button" aria-label="ปิด">×</button>
+        <div class="history-modal-heading"><span class="section-kicker">YOUR SPIN ACTIVITY</span><h2 id="historyModalTitle">ประวัติการสุ่ม</h2><p>โค้ด <span id="historyModalCode">-</span></p></div>
+        <button class="history-close" id="historyCloseBtn" type="button" aria-label="ปิดหน้าต่างประวัติการสุ่ม"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
+      <div class="history-overview" aria-label="สรุปจำนวนการสุ่ม"><div class="history-overview-icon" aria-hidden="true">↺</div><div><small>รายการที่บันทึกไว้</small><strong>ผลการสุ่มย้อนหลังทั้งหมด</strong></div><div class="history-overview-count"><strong id="historyEntryCount">—</strong><small>ครั้ง</small></div></div>
+      <div class="history-list-header"><span>รายการรางวัล</span><span>ล่าสุดอยู่ด้านบน</span></div>
       <div class="history-card-body" id="historyModalBody"></div>
     </div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="site-config.js"></script>
   <script src="firebase/firebase-config.js"></script>
-  <script src="js/no-zoom.js"></script>
   <script src="js/sounds.js"></script>
   <script src="js/index.js"></script>
+  <script src="js/customer-history-refresh.js"></script>
+  <script src="js/shared-notifications.js"></script>
 </body>
 </html>

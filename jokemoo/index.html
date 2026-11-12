@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#05070c">
   <meta name="color-scheme" content="dark">
   <title>JOKEMOO Control</title>
@@ -10,6 +10,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/jokemoo.css">
+  <link rel="stylesheet" href="../css/site-theme.css">
+  <link rel="stylesheet" href="../css/admin-code-management.css">
+  <link rel="stylesheet" href="../css/admin-account-security.css">
+  <link rel="stylesheet" href="../css/admin-profile-settings.css">
+  <link rel="stylesheet" href="../css/admin-roles-firebase.css">
+  <link rel="stylesheet" href="../css/shared-notifications.css">
+  <link rel="stylesheet" href="../css/performance-v11.css">
+  <link rel="stylesheet" href="../css/refinements-v12.css">
+  <link rel="stylesheet" href="../css/mobile-safari-v13.css">
+  <link rel="stylesheet" href="../css/notification-everywhere-v14.css">
+  <link rel="stylesheet" href="../css/admin-pagination-v15.css">
+  <link rel="stylesheet" href="../css/admin-ui-v16.css">
+  <link rel="stylesheet" href="../css/ui-fixes-v17.css">
+  <link rel="stylesheet" href="../css/admin-history-alignment-v18.css">
+  <link rel="stylesheet" href="../css/refinements-v19.css">
   <link rel="icon" type="image/png" href="../logo.png">
 </head>
 <body>
@@ -42,16 +57,17 @@
         <img src="../logo.png" alt="JOKEMOO">
         <div><strong>JOKEMOO</strong><span>CONTROL</span></div>
       </div>
-      <nav>
-        <button class="nav-item active" data-page="overview"><b></b><span>ภาพรวม</span></button>
-        <button class="nav-item" data-page="codes"><b></b><span>สร้างโค้ด</span></button>
-        <button class="nav-item" data-page="history"><b></b><span>ประวัติโค้ด</span></button>
-        <button class="nav-item" data-page="prizes"><b></b><span>ของรางวัล & เรท</span></button>
-        <button class="nav-item" data-page="accounts"><b></b><span>บัญชีผู้ดูแล</span></button>
+      <div class="workspace-heading" id="workspaceHeading">WORKSPACE</div>
+      <nav aria-label="เมนูแอดมิน">
+        <button type="button" class="nav-item active" data-page="overview"><svg class="nav-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>ภาพรวม</span></button>
+        <button type="button" class="nav-item" data-page="codes"><svg class="nav-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v4a3 3 0 0 0 0 6v4H4v-4a3 3 0 0 0 0-6V5Z"/><path d="M12 5v2m0 3v4m0 3v2" stroke-dasharray="2 2"/></svg><span>สร้างโค้ด</span></button>
+        <button type="button" class="nav-item" data-page="history"><svg class="nav-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 6.4"/><path d="M3 4v7h7"/><path d="M12 7v5l3.5 2"/></svg><span>ประวัติโค้ด</span></button>
+        <button type="button" class="nav-item" data-page="prizes"><svg class="nav-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-6-2.2-7-5.5-4.5-6.2S12 4.5 12 8Zm0 0c6-2.2 7-5.5 4.5-6.2S12 4.5 12 8Z"/></svg><span>ของรางวัล & เรท</span></button>
+        <button type="button" class="nav-item" data-page="accounts"><svg class="nav-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg><span>บัญชีผู้ดูแล</span></button>
       </nav>
       <div class="sidebar-bottom">
-        <div class="admin-user"><span>D</span><div><small>เข้าสู่ระบบเป็น</small><strong id="sidebarUsername">devbank</strong></div></div>
-        <button class="logout" id="logoutBtn">ออกจากระบบ</button>
+        <button class="admin-user admin-user-trigger" id="sidebarProfileBtn" type="button" title="ตั้งค่าโปรไฟล์" aria-label="เปิดการตั้งค่าโปรไฟล์"><span class="profile-avatar-mini" id="sidebarAvatar">D</span><div><small>เข้าสู่ระบบเป็น</small><strong id="sidebarUsername">devbank</strong></div><svg class="user-trigger-chevron" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"/></svg></button>
+
       </div>
     </aside>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -63,8 +79,14 @@
           <div><h2 id="pageTitle">ภาพรวม</h2><p id="pageSub">สรุปข้อมูลล่าสุด</p></div>
         </div>
         <div class="top-actions">
-          <span class="live"><i></i> LIVE</span>
-          <a class="site-link" href="index.html" target="_blank">เปิดหน้าสุ่ม ↗</a>
+          <div class="top-account-wrapper" id="topAccountWrapper">
+            <button type="button" class="top-profile-button" id="headerProfileBtn" aria-label="เมนูบัญชีผู้ดูแล" aria-haspopup="true" aria-expanded="false"><span class="profile-avatar-mini" id="topAvatar">D</span><span class="top-profile-label">โปรไฟล์</span><span class="top-role-mark" id="topRoleMark">—</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m6 9 6 6 6-6"/></svg></button>
+            <div class="account-dropdown" id="accountDropdown" hidden>
+              <div class="account-dd-identity"><span class="profile-avatar-mini" id="menuAvatar">D</span><div><b id="menuDisplayName">บัญชีของฉัน</b><small id="menuUsername">@admin</small></div><span class="role-badge" id="menuRole">—</span></div>
+              <button type="button" class="account-dd-action" id="profileMenuSettings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10 2.1 2.1M19.1 4.9 17 7m-10 10-2.1 2.1"/></svg>ตั้งค่าโปรไฟล์<span>↗</span></button>
+              <button type="button" class="account-dd-action account-dd-logout" id="logoutBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg>ออกจากระบบ</button>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -96,7 +118,12 @@
 
           <article class="panel table-panel">
             <div class="panel-head wrap"><div><h3>รายการในวันที่เลือก</h3><p id="overviewTableSub">ดึงจาก code_history แบบเรียลไทม์</p></div><input class="search" id="overviewSearch" placeholder="ค้นหาโค้ด / รางวัล..."></div>
-            <div class="table-wrap"><table><thead><tr><th>โค้ด</th><th>สถานะล่าสุด</th><th>สร้างเมื่อ</th><th>เริ่มใช้</th><th>สุ่มในวันที่เลือก</th><th>ผลล่าสุดของวัน</th></tr></thead><tbody id="overviewBody"></tbody></table></div>
+            <div class="table-wrap jm-table-viewport" id="overviewViewport" tabindex="0" role="region" aria-label="รายการในวันที่เลือก เลื่อนภายในกรอบได้"><table><thead><tr><th>โค้ด</th><th>สถานะล่าสุด</th><th>สร้างเมื่อ</th><th>เริ่มใช้</th><th>สุ่มในวันที่เลือก</th><th>ผลล่าสุดของวัน</th></tr></thead><tbody id="overviewBody"></tbody></table></div>
+            <div class="jm-pagination" id="overviewPagination" aria-label="การแบ่งหน้ารายการในวันที่เลือก">
+              <div class="jm-page-size"><label for="overviewPageSize">แสดงต่อหน้า</label><select id="overviewPageSize" aria-label="จำนวนแถวต่อหน้าของรายการในวันที่เลือก"><option value="5">5</option><option value="10" selected>10</option><option value="50">50</option><option value="100">100</option></select><span>แถว</span></div>
+              <div class="jm-page-summary" id="overviewPageSummary" role="status" aria-live="polite">กำลังโหลด...</div>
+              <nav class="jm-page-buttons" id="overviewPageButtons" aria-label="หน้ารายการในวันที่เลือก"></nav>
+            </div>
           </article>
         </section>
 
@@ -117,21 +144,26 @@
               <h3>ข้อมูลที่บันทึก</h3>
               <div class="info-row"><b>01</b><span><strong>วันและเวลาที่สร้าง</strong><small>บันทึกอัตโนมัติ</small></span></div>
               <div class="info-row"><b>02</b><span><strong>วันที่เริ่มใช้โค้ด</strong><small>เมื่อถูกตรวจผ่านครั้งแรก</small></span></div>
-              <div class="info-row"><b>03</b><span><strong>หมดอายุอัตโนมัติ</strong><small>สร้าง 04:03 → หมดวันถัดไป 04:03</small></span></div>
+              <div class="info-row"><b>03</b><span><strong>หมดอายุอัตโนมัติ</strong><small>คำนวณจากเวลาที่สร้างตามอายุโค้ดที่ตั้งค่าไว้</small></span></div>
               <div class="info-row"><b>04</b><span><strong>ประวัติผลการสุ่ม</strong><small>แสดงทุกผลของโค้ด</small></span></div>
             </article>
           </div>
 
-          <article class="panel table-panel">
+          <article class="panel table-panel code-table-panel">
             <div class="panel-head wrap code-list-head">
-              <div><h3>โค้ดทั้งหมด</h3><p>ค้นหา ดูผล คัดลอก และจัดการโค้ด</p></div>
-              <div class="code-tools">
-                <input class="search" id="codeSearch" placeholder="ค้นหาโค้ด / หมายเหตุ...">
-                <button class="btn warning" id="deleteExpiredCodesBtn" type="button">ลบโค้ดหมดอายุ</button>
-                <button class="btn danger" id="deleteAllCodesBtn" type="button">ลบโค้ดทั้งหมด</button>
+              <div><h3>โค้ดทั้งหมด</h3><p>ค้นหา ดูผล คัดลอก และลบโค้ดรายรายการ</p></div>
+              <div class="code-tools" role="group" aria-label="ค้นหาและจัดการโค้ด">
+                <input class="search" id="codeSearch" type="search" aria-label="ค้นหาโค้ดหรือหมายเหตุ" placeholder="ค้นหาโค้ด / หมายเหตุ...">
+                <button class="btn code-bulk-btn code-bulk-expired" id="deleteExpiredCodesBtn" type="button" title="ลบเฉพาะโค้ดที่หมดอายุแล้ว">ลบโค้ดหมดอายุ</button>
+                <button class="btn code-bulk-btn code-bulk-all" id="deleteAllCodesBtn" type="button" title="ลบโค้ดทั้งหมดออกจากรายการใช้งาน">ลบโค้ดทั้งหมด</button>
               </div>
             </div>
-            <div class="table-wrap"><table><thead><tr><th>โค้ด</th><th>หมายเหตุ</th><th>สร้างเมื่อ</th><th>หมดอายุ</th><th>เริ่มใช้</th><th>ทั้งหมด</th><th>เหลือ</th><th>ของที่ได้</th><th></th></tr></thead><tbody id="codesBody"></tbody></table></div>
+            <div class="table-wrap jm-table-viewport" id="codesViewport" tabindex="0" role="region" aria-label="ตารางโค้ดทั้งหมด เลื่อนภายในกรอบได้"><table><thead><tr><th>โค้ด</th><th>หมายเหตุ</th><th>สร้างเมื่อ</th><th>หมดอายุ</th><th>เริ่มใช้</th><th>ทั้งหมด</th><th>เหลือ</th><th>ของที่ได้</th><th></th></tr></thead><tbody id="codesBody"></tbody></table></div>
+            <div class="jm-pagination" id="codesPagination" aria-label="การแบ่งหน้ารายการโค้ด">
+              <div class="jm-page-size"><label for="codesPageSize">แสดงต่อหน้า</label><select id="codesPageSize" aria-label="จำนวนแถวต่อหน้าของรายการโค้ด"><option value="5">5</option><option value="10" selected>10</option><option value="50">50</option><option value="100">100</option></select><span>แถว</span></div>
+              <div class="jm-page-summary" id="codesPageSummary" role="status" aria-live="polite">กำลังโหลด...</div>
+              <nav class="jm-page-buttons" id="codesPageButtons" aria-label="หน้ารายการโค้ด"></nav>
+            </div>
           </article>
         </section>
 
@@ -149,7 +181,12 @@
               <div><h3>รายการประวัติ</h3><p>ค้นหาโค้ด ดูวันสร้าง วันใช้งาน และผลการสุ่มทุกครั้ง</p></div>
               <input class="search" id="historySearch" placeholder="ค้นหาโค้ด / หมายเหตุ / รางวัล...">
             </div>
-            <div class="table-wrap"><table><thead><tr><th>โค้ด</th><th>สถานะ</th><th>สร้างเมื่อ</th><th>เริ่มใช้</th><th>ลบจากรายการเมื่อ</th><th>สิทธิ์</th><th>ผลการสุ่ม</th><th></th></tr></thead><tbody id="historyBody"></tbody></table></div>
+            <div class="table-wrap jm-table-viewport" id="historyViewport" tabindex="0" role="region" aria-label="ตารางประวัติโค้ด เลื่อนภายในกรอบได้"><table><thead><tr><th>โค้ด</th><th>สถานะ</th><th>สร้างเมื่อ</th><th>เริ่มใช้</th><th>ลบจากรายการเมื่อ</th><th>สิทธิ์</th><th>ผลการสุ่ม</th><th></th></tr></thead><tbody id="historyBody"></tbody></table></div>
+            <div class="jm-pagination" id="historyPagination" aria-label="การแบ่งหน้ารายการประวัติ">
+              <div class="jm-page-size"><label for="historyPageSize">แสดงต่อหน้า</label><select id="historyPageSize" aria-label="จำนวนแถวต่อหน้าของรายการประวัติ"><option value="5">5</option><option value="10" selected>10</option><option value="50">50</option><option value="100">100</option></select><span>แถว</span></div>
+              <div class="jm-page-summary" id="historyPageSummary" role="status" aria-live="polite">กำลังโหลด...</div>
+              <nav class="jm-page-buttons" id="historyPageButtons" aria-label="หน้ารายการประวัติ"></nav>
+            </div>
           </article>
         </section>
 
@@ -171,13 +208,74 @@
         </section>
 
         <section class="page" id="page-accounts">
-          <div class="accounts-grid">
-            <article class="panel">
-              <div class="panel-head"><div><h3>สร้างบัญชีผู้ดูแล</h3><p>เพิ่ม Username และ Password สำหรับหลังบ้าน</p></div></div>
-              <div class="fields"><div><label>USERNAME</label><input id="newAdminUser" placeholder="เช่น staff01"></div><div><label>PASSWORD</label><input id="newAdminPass" type="password" placeholder="อย่างน้อย 8 ตัวอักษร"></div></div>
-              <button class="btn primary full" id="createAdminBtn">สร้างบัญชีผู้ดูแล</button>
+          <div class="role-account-top">
+            <div><span class="security-kicker">TEAM ACCESS</span><h3>บัญชีและสิทธิ์ผู้ดูแล</h3><p>จัดการทีมและยศผ่าน Firebase Authentication + Firestore</p></div>
+            <div class="role-account-actions">
+              <span class="role-role-hint" id="accountCurrentRole">กำลังตรวจสอบสิทธิ์</span>
+              <button type="button" id="roleOpenCreateBtn" class="role-create-trigger" title="เพิ่มบัญชีแอดมิน" aria-label="เพิ่มบัญชีผู้ดูแล" aria-controls="roleCreateModal" aria-haspopup="dialog" hidden>
+                <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                <span>เพิ่มผู้ดูแล</span>
+              </button>
+            </div>
+          </div>
+          <div class="role-metrics"><div><span>จำนวนบัญชี</span><strong id="roleAccountCount">—</strong><small>สมาชิกทั้งหมด</small></div><div><span>ยศของคุณ</span><strong id="roleCurrentLabel">—</strong><small>สิทธิ์ที่ได้รับ</small></div></div>
+          <div id="roleConnectionNote" class="role-connection-note" role="status">กำลังอ่านสิทธิ์จาก Firebase...</div>
+          <div class="roles-account-grid" id="rolesAccountControls" hidden>
+            <article class="panel role-list-panel">
+              <div class="panel-head"><div><span class="security-kicker">TEAM DIRECTORY</span><h3>รายชื่อผู้ดูแล</h3><p>ดูรูปประจำตัว ยศ และการจัดการบัญชี</p></div><input id="roleSearch" class="search" placeholder="ค้นหา Username..." autocomplete="off" aria-label="ค้นหาผู้ดูแล"></div>
+              <div id="secureAdminsList" class="role-users-list"><p class="role-empty">กำลังโหลดบัญชี...</p></div>
             </article>
-            <article class="panel table-panel"><div class="panel-head"><div><h3>ผู้ดูแลเพิ่มเติม</h3><p>บัญชีที่ได้รับสิทธิ์เข้าหลังบ้าน</p></div></div><div class="table-wrap"><table><thead><tr><th>Username</th><th>Email</th><th>สร้างเมื่อ</th><th>สร้างโดย</th><th></th></tr></thead><tbody id="adminsBody"></tbody></table></div></article>
+          </div>
+          <!-- Legacy management hooks are retained invisibly for compatibility; only the secured panel is user-facing. -->
+          <div class="legacy-admin-hooks" hidden aria-hidden="true"><input id="newAdminUser" disabled><input id="newAdminPass" disabled><button id="createAdminBtn" disabled type="button"></button><table><tbody id="adminsBody"></tbody></table></div>
+        </section>
+
+        <section class="page" id="page-profile" aria-labelledby="profilePageHeading">
+          <div class="profile-hero">
+            <div class="profile-hero-glow" aria-hidden="true"></div>
+            <div class="profile-identity">
+              <span class="profile-avatar-large" id="profileAvatar">D</span>
+              <div class="profile-hero-text"><span class="security-kicker">ACCOUNT CENTER</span><h3 id="profilePageHeading">ตั้งค่าโปรไฟล์</h3><p>ข้อมูลของ <strong id="profileHeroName">ผู้ดูแลระบบ</strong> · จัดการบัญชีและความปลอดภัยในที่เดียว</p><div class="profile-identity-chips"><span class="profile-chip"><i></i> <span id="profileRoleBadge">ADMIN</span></span><span class="profile-chip-muted" id="profileIdentityUsername">@devbank</span></div></div><div class="profile-hero-actions"></div>
+            </div>
+          </div>
+          <div class="profile-settings-layout">
+            <nav class="profile-settings-nav" aria-label="หมวดการตั้งค่าบัญชี">
+              <span class="profile-nav-eyebrow">ACCOUNT SETTINGS</span>
+              <button type="button" class="profile-tab is-current" data-profile-tab="general"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg><span>ข้อมูลโปรไฟล์</span></button>
+              <button type="button" class="profile-tab" data-profile-tab="password"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg><span>รหัสผ่าน</span></button>
+            </nav>
+            <div class="profile-main-panels">
+              <article class="panel profile-pane is-current" id="profile-tab-general" data-profile-pane="general">
+                <div class="profile-pane-head"><span class="profile-pane-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a7 7 0 0 0-14 0v2"/><circle cx="13" cy="7" r="4"/></svg></span><div><span class="security-kicker">PERSONAL INFO</span><h3>ข้อมูลโปรไฟล์</h3><p>ตั้งชื่อที่แสดงในหน้าแอดมินและตรวจสอบข้อมูลบัญชี</p></div></div>
+                <form id="profileInfoForm" class="profile-edit-form">
+                  <div class="profile-photo-editor"><div class="profile-photo-stage"><span class="profile-avatar-preview" id="profileAvatarPreview">D</span><span class="profile-photo-stage-hint">PROFILE PHOTO</span></div><div class="profile-photo-controls"><span class="profile-control-eyebrow">YOUR APPEARANCE</span><strong>รูปภาพประจำบัญชี</strong><p>รูปนี้จะปรากฏที่เมนูบัญชีและรายชื่อผู้ดูแล</p><label class="profile-field">ลิงก์รูปภาพ HTTPS<input id="profilePhotoUrl" type="url" inputmode="url" autocomplete="url" maxlength="1024" placeholder="https://example.com/my-photo.jpg"></label><small>ใช้ URL รูปภาพ HTTPS ที่เข้าถึงได้ หรือเว้นว่างเพื่อใช้อักษรย่อ</small></div></div>
+                  <label class="profile-field">ชื่อที่แสดง<input id="profileDisplayName" type="text" autocomplete="nickname" maxlength="60" placeholder="เช่น Bankkizz" required><small>ชื่อที่ใช้แสดงบนหน้าโปรไฟล์ ไม่เปลี่ยน Username ที่ใช้ล็อกอิน</small></label>
+                  <label class="profile-field">ชื่อผู้ใช้ (Username)<input id="profileUsername" type="text" disabled readonly></label>
+                  <label class="profile-field">บัญชีที่ใช้ยืนยันตัวตน<input id="profileAuthEmail" type="text" disabled readonly><small>บัญชี Firebase ที่ใช้เข้าสู่ระบบ (แก้ไขจากหน้านี้ไม่ได้)</small></label>
+
+                  <div class="profile-form-footer"><button type="submit" class="btn primary" id="profileSaveBtn">บันทึกข้อมูลโปรไฟล์</button><span class="security-feedback" id="profileInfoFeedback" role="status" aria-live="polite"></span></div>
+                </form>
+              </article>
+              <div class="profile-pane" id="profile-tab-password" data-profile-pane="password">
+          <article class="panel security-panel profile-security-panel" aria-labelledby="securityTitle">
+            <div class="security-header">
+              <div class="security-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><circle cx="12" cy="15.5" r="1"/></svg></div>
+              <div><span class="security-kicker">ACCOUNT SECURITY</span><h3 id="securityTitle">เปลี่ยนรหัสผ่านของฉัน</h3><p>ยืนยันรหัสผ่านปัจจุบันก่อนเปลี่ยน เพื่อความปลอดภัยของบัญชีผู้ดูแล</p></div>
+              <span class="security-label">เฉพาะบัญชีที่เข้าสู่ระบบ</span>
+            </div>
+            <div class="security-current">บัญชีที่กำลังใช้งาน <strong id="securityAccountName">—</strong></div>
+            <form id="changePasswordForm" autocomplete="off" class="security-form">
+              <label class="security-field"><span>รหัสผ่านปัจจุบัน</span><input id="currentAdminPassword" type="password" autocomplete="current-password" placeholder="กรอกรหัสผ่านปัจจุบัน" required></label>
+              <label class="security-field"><span>รหัสผ่านใหม่</span><input id="newAdminPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="อย่างน้อย 8 ตัวอักษร" required></label>
+              <label class="security-field"><span>ยืนยันรหัสผ่านใหม่</span><input id="confirmAdminPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="กรอกรหัสใหม่อีกครั้ง" required></label>
+              <div class="security-submit"><button class="btn primary" id="changePasswordBtn" type="submit">เปลี่ยนรหัสผ่าน</button><span class="security-feedback" id="securityFeedback" role="status" aria-live="polite"></span></div>
+            </form>
+            <div class="profile-password-advice"><span class="profile-advice-check" aria-hidden="true">✓</span><div><strong>ข้อมูลเข้าสู่ระบบของคุณได้รับการจัดการโดย Firebase Authentication</strong><small>เปลี่ยนรหัสผ่านของบัญชีตนเองเท่านั้น และต้องยืนยันรหัสปัจจุบันก่อนทุกครั้ง</small></div></div>
+
+              </article>
+              </div>
+
+</div>
           </div>
         </section>
       </div>
@@ -185,17 +283,69 @@
   </div>
 
 
+  <div class="v7-modal role-create-modal" id="roleCreateModal" hidden>
+    <div class="v7-modal-backdrop" data-close-role-create></div>
+    <div class="v7-modal-card role-create-card" role="dialog" aria-modal="true" aria-labelledby="roleCreateModalTitle" aria-describedby="roleCreateModalDesc" tabindex="-1">
+      <button type="button" class="v7-close" data-close-role-create aria-label="ปิดหน้าต่างเพิ่มผู้ดูแล">×</button>
+      <div class="role-create-icon" aria-hidden="true">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v8M15 12h8"/></svg>
+      </div>
+      <span class="security-kicker">NEW TEAM MEMBER</span>
+      <h3 id="roleCreateModalTitle">เพิ่มบัญชีผู้ดูแล</h3>
+      <p class="role-create-description" id="roleCreateModalDesc">กรอกข้อมูลเพื่อสร้างบัญชี Firebase พร้อมกำหนดยศที่ได้รับ</p>
+      <form id="roleCreateAccountForm" autocomplete="off" class="role-create-form">
+        <label>USERNAME<input type="text" id="roleNewUsername" minlength="3" maxlength="30" pattern="[a-zA-Z0-9_.-]+" placeholder="เช่น staff01" autocomplete="off" spellcheck="false" required></label>
+        <label>PASSWORD<input type="password" id="roleNewPassword" minlength="8" maxlength="128" placeholder="อย่างน้อย 8 ตัวอักษร" autocomplete="new-password" required></label>
+        <label>ROLE<select id="roleNewRole"><option value="admin">ADMIN</option><option value="owner">OWNER</option><option value="dev">DEV</option></select></label>
+        <p id="roleCreateFeedback" class="v7-form-feedback" role="status" aria-live="polite"></p>
+        <div class="role-create-footer">
+          <button type="button" class="btn soft" data-close-role-create>ยกเลิก</button>
+          <button type="submit" class="btn primary" id="roleCreateAccountBtn">สร้างบัญชีใหม่</button>
+        </div>
+      </form>
+      <p class="role-create-footnote"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>บัญชีจะถูกเพิ่มใน Firebase Auth และสิทธิ์จะถูกบันทึกใน Firestore</p>
+    </div>
+  </div>
+
+  <div class="v7-modal" id="v7AccountModal" hidden>
+    <div class="v7-modal-backdrop" data-v7-close></div>
+    <div class="v7-modal-card" role="dialog" aria-modal="true" aria-labelledby="v7AccountTitle">
+      <button type="button" class="v7-close" data-v7-close aria-label="ปิด">×</button>
+      <span class="security-kicker">FIREBASE ACCOUNT ACCESS</span><h3 id="v7AccountTitle">จัดการสิทธิ์แอดมิน</h3>
+      <div class="v7-selected-person"><span class="profile-avatar-mini" id="v7TargetAvatar">A</span><div><strong id="v7TargetUsername">—</strong><small id="v7TargetUid">—</small></div><span class="role-badge" id="v7TargetRole">ADMIN</span></div>
+      <label class="v7-field" id="v8EditRoleGroup">เปลี่ยนยศ<select id="v7EditRole"><option value="admin">ADMIN</option><option value="owner">OWNER</option><option value="dev">DEV</option></select></label>
+      <button type="button" class="btn v7-softbtn" id="v7SaveRole">บันทึกยศ</button>
+      <div class="v7-modal-separator"></div>
+      <p class="v7-helper">ถอนสิทธิ์เข้าหลังบ้านโดยลบเอกสารสิทธิ์ใน Firestore ไม่ได้ลบบัญชีออกจาก Firebase Authentication การป้องกันการเข้าถึงข้อมูลต้องตั้ง Firestore Security Rules ตามคู่มือ</p>
+      <label class="v7-field v7-delete-field">พิมพ์ Username เพื่อยืนยันการถอนสิทธิ์<input id="v7DeleteConfirm" autocomplete="off" placeholder="พิมพ์ Username ให้ตรง"></label>
+      <button type="button" class="btn danger full" id="v7DeleteAccount">ถอนสิทธิ์หลังบ้าน</button>
+      <p id="v7AccountFeedback" class="v7-form-feedback" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="v7-modal" id="jmRevokeConfirm" hidden>
+    <div class="v7-modal-backdrop" data-jm-revoke-close></div>
+    <section class="v7-modal-card" role="dialog" aria-modal="true" aria-labelledby="jmRevokeTitle"><div class="jm-revoke-icon" aria-hidden="true">!</div>
+      <h3 id="jmRevokeTitle">ยืนยันการถอนสิทธิ์</h3><p>ต้องการถอนสิทธิ์เข้าหลังบ้านของ <span class="jm-revoke-target" id="jmRevokeTarget">—</span> ใช่หรือไม่? บัญชี Firebase Authentication จะยังคงอยู่</p>
+      <div class="jm-revoke-actions"><button class="btn soft" id="jmRevokeCancel" data-jm-revoke-close type="button">ยกเลิก</button><button class="btn danger" id="jmRevokeAccept" type="button">ยืนยันถอนสิทธิ์</button></div>
+    </section>
+  </div>
   <div class="admin-modal" id="confirmModal" aria-hidden="true">
     <div class="admin-modal-backdrop" data-close-confirm></div>
-    <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-      <div class="confirm-icon">!</div>
-      <span class="confirm-kicker">ยืนยันการทำรายการ</span>
+    <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmText" tabindex="-1">
+      <button type="button" class="confirm-close" id="confirmCloseBtn" aria-label="ปิดหน้าต่าง">×</button>
+      <div class="confirm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.7 19a1.4 1.4 0 0 0 1.2 2h16.2a1.4 1.4 0 0 0 1.2-2L12 3Z"/><path d="M12 9v4m0 4h.01"/></svg></div>
+      <span class="confirm-kicker" id="confirmKicker">CONFIRM ACTION</span>
       <h3 id="confirmTitle">ยืนยันการลบ</h3>
       <p id="confirmText">รายการที่ลบจะไม่สามารถย้อนกลับได้</p>
+      <div class="confirm-preserve" id="confirmPreserve" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 10 17l-5-5"/><circle cx="12" cy="12" r="10"/></svg><span id="confirmPreserveText">ประวัติโค้ดและผลการสุ่มจะยังถูกเก็บไว้</span></div>
+      <label class="confirm-ack" id="confirmAckRow" hidden><input type="checkbox" id="confirmAck"><span class="confirm-check-ui" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span><span id="confirmAckText">ฉันเข้าใจว่ารายการโค้ดทั้งหมดจะถูกลบออกจากการใช้งาน</span></label>
+      <div class="jm-delete-progress" id="jmBulkProgress" hidden><span class="jm-delete-progress-label" id="jmBulkProgressLabel">กำลังจัดการรายการ…</span><progress id="jmBulkProgressBar" value="0" max="100"></progress></div>
       <div class="confirm-actions">
         <button class="btn soft" id="confirmCancelBtn" type="button">ยกเลิก</button>
         <button class="btn danger confirm-danger" id="confirmOkBtn" type="button">ยืนยันลบ</button>
       </div>
+      <p class="confirm-footnote" id="confirmFootnote" hidden>โปรดตรวจสอบรายการให้แน่ใจก่อนยืนยัน</p>
     </div>
   </div>
 
@@ -210,14 +360,26 @@
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" aria-hidden="true"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="../site-config.js"></script>
   <script src="../firebase/firebase-config.js"></script>
-  <script src="../js/no-zoom.js"></script>
+  <script src="../js/admin-table-pages.js"></script>
+  <script src="../js/admin-overview-pages-v16.js"></script>
   <script src="../js/jokemoo.js"></script>
+  <script src="../js/admin-actor-labels.js"></script>
+  <script src="../js/admin-code-management.js"></script>
+  <script src="../js/shared-notifications.js"></script>
+  <script src="../js/admin-account-security.js"></script>
+  <script src="../js/admin-profile-settings.js"></script>
+  <script src="../js/admin-revoke-modal.js"></script>
+  <script src="../js/admin-roles-firebase.js"></script>
+  <script src="../js/admin-ui-v16.js"></script>
+  <script src="../js/ui-fixes-v17.js"></script>
+  <script src="../js/admin-history-alignment-v18.js"></script>
 </body>
 </html>

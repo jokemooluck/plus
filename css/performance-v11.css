@@ -1,0 +1,5 @@
+/* v11 progressive optimizations: animations intact, expensive blur reduced */
+@media(max-width:700px){.page-bg{filter:none!important;backdrop-filter:none!important}.v7-modal-backdrop{backdrop-filter:none!important}.admin-notification{backdrop-filter:none!important}}
+#wheelDisk{backface-visibility:hidden;transform-origin:center;contain:layout style paint}
+.role-users-list,.jm-activity-panel{contain:layout style}
+@media(prefers-reduced-motion:reduce){.jm-toast,.role-create-card{animation:none!important}}

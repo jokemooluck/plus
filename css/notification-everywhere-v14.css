@@ -1,0 +1,8 @@
+/* v14: consistent toast on all pages, including narrow iOS Safari viewports */
+.jm-toast-host { position:fixed !important; z-index:2147483000 !important; box-sizing:border-box; pointer-events:none; }
+.jm-toast-host .jm-toast { pointer-events:auto; box-sizing:border-box; }
+@media (max-width:640px) {
+ .jm-toast-host { left:max(10px,env(safe-area-inset-left)) !important; right:max(10px,env(safe-area-inset-right)) !important; width:auto !important; max-width:none !important; top:calc(12px + env(safe-area-inset-top)) !important; }
+ .jm-toast-host .jm-toast { max-width:100%; width:100%; }
+ .jm-toast-content { min-width:0; overflow-wrap:anywhere; }
+}

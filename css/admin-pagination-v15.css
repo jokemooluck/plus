@@ -1,0 +1,120 @@
+/* v15: scroll-in-frame + controlled pagination for code/history records. */
+#page-codes .jm-table-viewport,
+#page-history .jm-table-viewport {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  max-height: min(58vh, 600px);
+  min-height: 0;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #305675 transparent;
+  scrollbar-gutter: stable;
+  border: 1px solid rgba(57, 93, 123, .29);
+  border-radius: 12px;
+  background: #08111c;
+  outline-offset: 3px;
+}
+#page-codes .jm-table-viewport:focus-visible,
+#page-history .jm-table-viewport:focus-visible {outline: 2px solid #329cff;}
+#page-codes .jm-table-viewport th,
+#page-history .jm-table-viewport th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #0c1723;
+  box-shadow: inset 0 -1px rgba(65, 94, 119, .4);
+}
+#page-codes .jm-table-viewport table,
+#page-history .jm-table-viewport table {margin: 0;}
+#page-codes .jm-table-viewport tr,
+#page-history .jm-table-viewport tr {content-visibility: visible;}
+#page-codes .jm-table-viewport::-webkit-scrollbar,
+#page-history .jm-table-viewport::-webkit-scrollbar {height: 8px; width: 8px;}
+#page-codes .jm-table-viewport::-webkit-scrollbar-thumb,
+#page-history .jm-table-viewport::-webkit-scrollbar-thumb {background: #305675; border-radius: 12px;}
+
+.jm-pagination {
+  margin-top: 15px;
+  padding: 14px 3px 1px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 12px;
+  border-top: 1px solid rgba(71, 103, 133, .22);
+  color: #9bb0c8;
+  font-size: 12px;
+}
+.jm-page-size {display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;}
+.jm-page-size label {font-size: 12px; color: #a6bad0;}
+.jm-page-size select {
+  appearance: none;
+  -webkit-appearance: none;
+  min-width: 70px;
+  min-height: 38px;
+  padding: 0 25px 0 12px;
+  border-radius: 10px;
+  border: 1px solid #27425b;
+  color: #eef7ff;
+  background-color: #0d1c2b;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2380a7cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="m6 9 6 6 6-6"/%3E%3C/svg%3E');
+  background-position: right 9px center;
+  background-repeat: no-repeat;
+  font: 500 12px Inter, 'IBM Plex Sans Thai', sans-serif;
+  cursor: pointer;
+}
+.jm-page-size select:hover {border-color: #497ca6;}
+.jm-page-size select:focus-visible {outline: 2px solid #328fff; outline-offset: 2px;}
+.jm-page-size select option {background: #101d2b; color: #eef7ff;}
+.jm-page-summary {color: #778fa8; white-space: nowrap;}
+.jm-page-buttons {display: flex; align-items: center; justify-content: flex-end; gap: 5px; margin-left: auto;}
+.jm-page-button {
+  min-width: 35px;
+  height: 35px;
+  border: 1px solid #233c54;
+  border-radius: 9px;
+  padding: 0 9px;
+  background: #0c1724;
+  color: #a8c5e3;
+  font: 600 12px Inter, 'IBM Plex Sans Thai', sans-serif;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.jm-page-button:not(:disabled):hover {background: #152d46; border-color: #428bd0; color: #fff;}
+.jm-page-button.is-current {background: #1376db; color: #fff; border-color: #168cf7; cursor: default;}
+.jm-page-button:disabled:not(.is-current) {opacity: .35; cursor: not-allowed;}
+.jm-page-button:focus-visible {outline: 2px solid #6ab9ff; outline-offset: 2px;}
+.jm-page-arrow {font-size: 22px; line-height: 1; font-weight: 400;}
+.jm-page-ellipsis {min-width: 18px; text-align: center; color: #6c8199;}
+#page-codes .code-table-panel,
+#page-history .table-panel {min-width: 0;}
+
+.jm-delete-progress {padding-top: 13px; padding-bottom: 5px;}
+.jm-delete-progress[hidden] {display: none !important;}
+.jm-delete-progress-label {display: block; padding-bottom: 8px; font-size: 11px; color: #b7d1e9;}
+.jm-delete-progress progress {display: block; width: 100%; height: 7px; appearance: none; border: 0; border-radius: 100px; overflow: hidden; background: #14263a;}
+.jm-delete-progress progress::-webkit-progress-bar {background: #14263a; border-radius: 100px;}
+.jm-delete-progress progress::-webkit-progress-value {background: #2399f4; border-radius: 100px;}
+.jm-delete-progress progress::-moz-progress-bar {background: #2399f4; border-radius: 100px;}
+
+@media (max-width: 760px) {
+  #page-codes .jm-table-viewport,
+  #page-history .jm-table-viewport { max-height: min(51vh, 475px); }
+  .jm-pagination {justify-content: space-between; gap: 9px 12px; padding-top: 12px; font-size: 11px;}
+  .jm-page-summary {order: 3; width: 100%; text-align: center;}
+  .jm-page-buttons {justify-content: flex-end;}
+  .jm-page-button {min-width: 31px; height: 34px; padding-inline: 7px;}
+}
+@media (max-width: 410px) {
+  .jm-pagination {gap: 12px 7px;}
+  .jm-page-size {gap: 5px;}
+  .jm-page-size label, .jm-page-size span {font-size: 10px;}
+  .jm-page-size select {min-width: 61px; padding-left: 9px; font-size: 11px;}
+  .jm-page-buttons {gap: 3px;}
+  .jm-page-button {min-width: 29px; height: 32px; padding-inline: 5px;}
+}

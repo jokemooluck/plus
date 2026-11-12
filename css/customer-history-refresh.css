@@ -1,0 +1,89 @@
+/* JOKEMOO customer history redesign — presentation only. */
+/* Action hierarchy: verify code -> contact via LINE -> view history. */
+.code-card .customer-actions{display:block;margin-top:19px;width:100%}
+.code-card .customer-actions .line-contact{margin-top:0;min-height:64px}
+.code-card .history-action-section{position:relative;margin-top:14px;padding-top:14px;border-top:1px solid #1d2a39}
+.code-card .history-action-section::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:#337fb8}
+.code-card .history-action-section .history-entry{display:grid;grid-template-columns:38px minmax(0,1fr) 17px;width:100%;max-width:none;min-height:62px;margin:0;padding:10px 12px;border:1px solid #26394d;border-radius:12px;background:linear-gradient(120deg,#0b1826,#0a141f);color:#e3effa;text-align:left;gap:11px;align-items:center;box-shadow:none;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.code-card .history-action-section .history-entry:hover{transform:translateY(-1px);border-color:#3774a3;background:linear-gradient(120deg,#102239,#0c1b2b);color:#f4f9ff}
+.code-card .history-action-section .history-entry:focus-visible{outline:2px solid #63b5ff;outline-offset:3px}
+.code-card .history-action-section .history-entry .history-entry-icon{display:grid;place-items:center;width:38px;height:38px;background:#11304b;color:#77beff;border:1px solid #22496b;border-radius:10px}
+.history-action-section .history-entry-copy{display:block;min-width:0;font-family:"IBM Plex Sans Thai",sans-serif}
+.history-action-section .history-entry-copy strong{display:block;font-size:12px;font-weight:700;line-height:1.45;color:#e3f2ff}
+.history-action-section .history-entry-copy small{display:block;margin-top:2px;font-size:10px;font-weight:400;line-height:1.5;color:#7893a8}
+.code-card .history-action-section .history-entry>b{display:block;font:700 17px/1 Inter,sans-serif;color:#70baf7}
+.code-card .form-message{min-height:0}
+.code-card .form-message:empty{display:none}
+.code-card .form-message:not(:empty){margin-top:9px}
+
+/* History modal */
+.history-modal .history-modal-backdrop{background:rgba(1,5,11,.86)!important;backdrop-filter:blur(6px)!important}
+.history-modal .history-card{width:min(570px,100%);max-height:min(88svh,780px);border:1px solid #29415a;border-radius:21px;background:linear-gradient(165deg,#0d1825 0%,#081019 45%,#080f18 100%);box-shadow:0 28px 100px rgba(0,0,0,.72),0 0 0 1px rgba(60,141,212,.035);display:flex;flex-direction:column}
+.history-modal .history-card-head{padding:23px 24px 19px;align-items:center;border-bottom:1px solid #1b3044}
+.history-modal .history-card-head .section-kicker{font-size:9px;letter-spacing:.19em;color:#75bbf8}
+.history-modal .history-card-head h2{margin:6px 0 4px;font-size:25px;line-height:1.3;font-weight:750;letter-spacing:-.018em;color:#f4f8fd}
+.history-modal .history-card-head p{max-width:calc(100% - 2px);margin:0;font-family:"IBM Plex Sans Thai",sans-serif;font-size:11px;font-weight:500;color:#879fb5;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history-modal .history-card-head #historyModalCode{color:#89c6fa;font:700 12px/1.6 Inter,sans-serif;letter-spacing:.025em}
+.history-modal .history-close{flex:0 0 37px;width:37px;height:37px;display:grid;place-items:center;font-size:24px;border-radius:11px;border-color:#2a4054;color:#abc0d3;background:#111f2d;transition:.18s}
+.history-modal .history-close:hover{border-color:#4c7fa6;color:#fff;background:#182d41}
+.history-overview{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:12px;margin:18px 23px 0;padding:13px 15px;border:1px solid #23445f;border-radius:13px;background:linear-gradient(105deg,#0d2940,#0d1c2c)}
+.history-overview-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:#163e5f;color:#7fc6ff;font-size:23px}
+.history-overview>div:nth-child(2){min-width:0}
+.history-overview>div:nth-child(2) small{display:block;margin-bottom:2px;font-size:10px;color:#86acc9}
+.history-overview>div:nth-child(2) strong{display:block;font-size:13px;font-weight:700;line-height:1.45;color:#ecf7ff}
+.history-overview-count{min-width:51px;display:flex;gap:5px;align-items:baseline;justify-content:flex-end}
+.history-overview-count strong{font:800 25px/1 Inter,sans-serif;color:#8ed0ff}
+.history-overview-count small{font-size:10px;color:#85a5bf}
+.history-list-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 23px 0;font-size:10px;color:#a0b6c9;font-weight:600}
+.history-list-header span:last-child{color:#6e91ac;font-weight:400}
+.history-modal .history-card-body{flex:1 1 auto;min-height:0;max-height:none;overflow-y:auto;padding:11px 23px 24px;scrollbar-width:thin;scrollbar-color:#356c96 transparent}
+.history-modal .customer-history-list{counter-reset:spinrows;display:flex;flex-direction:column;gap:9px;padding:0}
+.history-modal .customer-history-row{counter-increment:spinrows;display:grid;grid-template-columns:37px minmax(0,1fr);gap:12px;align-items:center;width:100%;min-height:72px;margin:0;padding:13px;border:1px solid #22384d;border-radius:13px;background:linear-gradient(130deg,#0c1b2b,#0a1622);transition:border-color .18s,background .18s,transform .18s}
+.history-modal .customer-history-row:hover{border-color:#3873a0;background:linear-gradient(130deg,#10253a,#0d1b2b);transform:none}
+.history-modal .customer-history-row .history-row-mark{display:grid;place-items:center;flex:none;width:37px;height:37px;border:1px solid #254d6b;border-radius:11px;background:#13334d;box-shadow:none}
+.history-modal .customer-history-row .history-row-mark::after{content:counter(spinrows, decimal-leading-zero);font:700 11px Inter,sans-serif;color:#88ccff}
+.history-modal .customer-history-row>div{min-width:0}
+.history-modal .customer-history-row strong{display:block;font-size:13px;font-weight:700;line-height:1.55;letter-spacing:0;color:#ecf6ff;overflow-wrap:anywhere;word-break:normal}
+.history-modal .customer-history-row small{display:block;margin-top:3px;font-size:10.5px;line-height:1.55;color:#849db3}
+.history-modal .customer-history-empty,.history-modal .history-loading{padding:34px 15px;border:1px dashed #2c4457;border-radius:12px;background:#0a1723;text-align:center;font-size:12px;line-height:1.8;color:#89a2b9}
+@media(max-width:620px){
+  .code-card .customer-actions{margin-top:16px}
+  .code-card .history-action-section{margin-top:12px;padding-top:12px}
+  .code-card .history-action-section .history-entry{min-height:59px;padding:10px;grid-template-columns:36px minmax(0,1fr) 15px;gap:9px}
+  .code-card .history-action-section .history-entry .history-entry-icon{width:36px;height:36px}
+  .history-action-section .history-entry-copy strong{font-size:12px}
+  .history-action-section .history-entry-copy small{font-size:9px}
+  .history-modal .history-card{width:min(450px,calc(100vw - 20px));max-height:calc(100svh - 24px);border-radius:17px}
+  .history-modal .history-card-head{padding:18px 16px 15px}
+  .history-modal .history-card-head h2{font-size:22px}
+  .history-overview{margin:13px 14px 0;padding:11px;grid-template-columns:38px minmax(0,1fr) auto;gap:9px}
+  .history-overview-icon{width:38px;height:38px}
+  .history-overview>div:nth-child(2) strong{font-size:11.5px}
+  .history-overview-count strong{font-size:22px}
+  .history-list-header{margin:16px 15px 0}
+  .history-modal .history-card-body{padding:10px 14px 17px}
+  .history-modal .customer-history-row{display:grid;grid-template-columns:35px minmax(0,1fr);gap:10px;min-height:67px;padding:11px;border-radius:11px}
+  .history-modal .customer-history-row .history-row-mark{width:35px;height:35px}
+  .history-modal .customer-history-row strong{font-size:12.5px;line-height:1.5}
+  .history-modal .customer-history-row small{font-size:10px}
+}
+@media(max-width:370px){.history-overview>div:nth-child(2) strong{font-size:10.5px}.history-overview-count{min-width:42px}.history-overview-count strong{font-size:19px}.history-list-header{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.history-modal .customer-history-row{transition:none}}
+/* Override the legacy mobile rule that moved every <span> to column 2. */
+.history-modal .customer-history-row>.history-row-mark{grid-column:1;grid-row:1}
+.history-modal .customer-history-row>div{grid-column:2;grid-row:1;width:auto;min-width:0;align-self:center}
+
+/* v4 — Understated text-only history link, no card, border, shadow or rule. */
+.code-card .history-action-section{margin:16px 0 0;padding:0;border:0;background:none;text-align:center}
+.code-card .history-action-section::before{display:none!important}
+.code-card .history-action-section .history-entry{width:auto;min-height:0;max-width:100%;display:inline-flex;justify-content:center;align-items:center;gap:7px;margin:0 auto;padding:7px 8px;background:transparent!important;border:0!important;border-radius:0;box-shadow:none!important;color:#8fa9c0;text-align:center;transform:none!important;cursor:pointer;transition:color .2s}
+.code-card .history-action-section .history-entry:hover{background:transparent!important;color:#c3e4ff;border:0!important;transform:none!important}
+.code-card .history-action-section .history-entry:focus-visible{outline:2px solid #63b5ff;outline-offset:3px;border-radius:5px}
+.code-card .history-action-section .history-entry .history-entry-icon{display:inline-grid;place-items:center;flex:none;width:19px;height:19px;background:none;border:0;border-radius:0;color:currentColor}
+.code-card .history-action-section .history-entry .history-entry-icon svg{width:17px;height:17px}
+.code-card .history-action-section .history-entry .history-entry-copy{display:inline;min-width:auto}
+.code-card .history-action-section .history-entry .history-entry-copy strong{display:inline;font-size:12px;font-weight:600;line-height:1.45;color:inherit}
+.code-card .history-action-section .history-entry .history-entry-copy small{display:none}
+.code-card .history-action-section .history-entry>b{display:inline;font-size:13px;font-weight:500;color:inherit;transition:transform .2s}
+.code-card .history-action-section .history-entry:hover>b{transform:translate(2px,-2px)}
+@media(max-width:620px){.code-card .history-action-section{margin-top:13px;padding:0}.code-card .history-action-section .history-entry{min-height:0;padding:7px 8px;display:inline-flex;gap:7px}.code-card .history-action-section .history-entry .history-entry-icon{width:19px;height:19px}.history-action-section .history-entry-copy strong{font-size:12px}}

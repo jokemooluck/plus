@@ -1,0 +1,10 @@
+/* JOKEMOO unified toast — same on storefront and admin */
+.jm-toast-host{position:fixed;top:max(20px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:10000;pointer-events:none;width:min(392px,calc(100vw - 30px))}
+.jm-toast{--tone:#61aaf5;--soft:#172e44;position:relative;display:flex;gap:13px;align-items:center;background:#0c1825;border:1px solid #294158;border-left:3px solid var(--tone);border-radius:18px;padding:15px 15px 15px 14px;box-shadow:0 20px 50px rgba(0,0,0,.45);color:#e9f4ff;opacity:0;transform:translate3d(15px,-7px,0) scale(.985);visibility:hidden;transition:transform .23s cubic-bezier(.2,.8,.2,1),opacity .23s ease,visibility .23s;pointer-events:auto}
+.jm-toast-open{opacity:1;visibility:visible;transform:none}
+.jm-toast[data-tone=success]{--tone:#20cf90;--soft:#10372b}.jm-toast[data-tone=error]{--tone:#ff6a88;--soft:#3f1d2d}.jm-toast[data-tone=warning]{--tone:#ffa85e;--soft:#35281e}
+.jm-toast-mark{display:grid;place-items:center;width:41px;height:41px;flex:0 0 41px;border-radius:12px;background:var(--soft);border:1px solid color-mix(in srgb,var(--tone) 35%,transparent);color:var(--tone);font:700 23px Inter,sans-serif}
+.jm-toast-content{min-width:0;flex:1}.jm-toast-heading{display:block;font-size:13px;font-weight:750;line-height:1.4}.jm-toast-description{margin:3px 0 0;color:#91a9bc;font-size:11px;line-height:1.6;overflow-wrap:anywhere}.jm-toast-close{width:28px;height:28px;flex:0 0 28px;border:0;border-radius:8px;background:transparent;color:#8199ad;cursor:pointer;font:24px/1 Arial}.jm-toast-close:hover{background:#1b2b3b;color:#fff}
+.jm-old-toast-hidden{visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+@media(max-width:540px){.jm-toast-host{top:max(12px,env(safe-area-inset-top));left:13px;right:13px;width:auto}.jm-toast{padding:12px;border-radius:14px}}
+@media(prefers-reduced-motion:reduce){.jm-toast{transition:none}}

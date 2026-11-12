@@ -1,0 +1,149 @@
+/* JOKEMOO v19 — Storefront modal, one premium toast, admin polish.
+   Loaded last so it overrides earlier responsive/animation styles. */
+
+/* Customer index: modal heading and close button share an exact grid baseline. */
+.history-modal .history-card-head{
+  display:grid!important;grid-template-columns:minmax(0,1fr) 38px;
+  column-gap:14px;align-items:start!important;justify-content:stretch!important;
+  padding:22px 23px 18px!important;
+}
+.history-modal .history-card-head .history-modal-heading{min-width:0;grid-column:1;grid-row:1;align-self:center}
+.history-modal .history-card-head .history-close{
+  position:relative!important;inset:auto!important;top:auto!important;right:auto!important;
+  grid-column:2;grid-row:1;align-self:start;justify-self:end;
+  display:grid!important;place-items:center!important;box-sizing:border-box;
+  width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;
+  padding:0!important;margin:0!important;border:1px solid #2a435b!important;
+  border-radius:11px!important;background:#101f2f!important;color:#9eb9d0!important;
+  line-height:1!important;font-size:0!important;transform:none!important;box-shadow:none!important;
+  cursor:pointer;transition:border-color .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.history-modal .history-card-head .history-close svg{display:block;width:18px;height:18px;pointer-events:none}
+.history-modal .history-card-head .history-close:hover{color:#e5f5ff!important;background:#183149!important;border-color:#4a83b3!important;box-shadow:0 0 0 3px #3d99ee19!important}
+.history-modal .history-card-head .history-close:focus-visible{outline:2px solid #6fbaff!important;outline-offset:3px}
+@media(max-width:620px){
+  .history-modal .history-card-head{grid-template-columns:minmax(0,1fr) 38px;padding:17px 16px 16px!important;column-gap:10px}
+}
+
+/* Admin: only two actual account summary cards; never retain a ghost third slot. */
+#page-accounts .role-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px}
+#page-accounts .role-metrics>div:last-child{grid-column:auto!important}
+@media(max-width:400px){#page-accounts .role-metrics{grid-template-columns:1fr!important}}
+
+/* Single notification surface for both pages. Only its close icon captures clicks. */
+body .jm-toast-host.jm-notice-v19,
+body .jm-toast-host.jm-notice-v19.is-visible{
+  position:fixed!important;inset:auto!important;right:auto!important;bottom:auto!important;
+  box-sizing:border-box!important;max-width:calc(100vw - 24px)!important;
+  padding:0!important;margin:0!important;overflow:visible!important;
+  z-index:2147482000!important;pointer-events:none!important;contain:none!important;
+  transition:none!important;
+}
+body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card{
+  --jm-tone:#58acff;--jm-tone-soft:#19334d;
+  position:relative;display:grid!important;grid-template-columns:40px minmax(0,1fr) 28px;
+  align-items:center;gap:12px;width:100%!important;min-height:74px;max-height:none!important;
+  padding:14px 13px 16px!important;margin:0!important;box-sizing:border-box;
+  color:#e9f5ff!important;background:linear-gradient(118deg,#111f2e 0%,#0b1622 65%,#0c1723 100%)!important;
+  border:1px solid #2a455e!important;border-radius:16px!important;
+  box-shadow:0 15px 38px #0009,0 0 0 1px #0d1d2a!important;
+  opacity:0;visibility:hidden;transform:translate3d(0,-10px,0) scale(.975)!important;
+  transition:transform .24s cubic-bezier(.18,.85,.2,1),opacity .24s ease,visibility .24s!important;
+  pointer-events:none!important;overflow:hidden!important;isolation:isolate;
+}
+body .jm-toast-host.jm-notice-v19 .jm-toast.jm-toast-open{
+  visibility:visible;opacity:1;transform:translate3d(0,0,0) scale(1)!important;
+}
+body .jm-notice-v19 .jm-toast[data-tone='success']{--jm-tone:#39dba4;--jm-tone-soft:#0c362e}
+body .jm-notice-v19 .jm-toast[data-tone='error']{--jm-tone:#ff7c98;--jm-tone-soft:#3b2231}
+body .jm-notice-v19 .jm-toast[data-tone='warning']{--jm-tone:#ffc078;--jm-tone-soft:#42301e}
+body .jm-notice-v19 .jm-notice-icon{
+  width:40px;height:40px;display:grid;place-items:center;align-self:center;flex:none;
+  border-radius:12px;border:1px solid color-mix(in srgb,var(--jm-tone) 30%,transparent);
+  background:var(--jm-tone-soft);color:var(--jm-tone);
+}
+body .jm-notice-v19 .jm-notice-icon svg{display:block}
+body .jm-notice-v19 .jm-notice-copy{min-width:0;overflow:hidden}
+body .jm-notice-v19 .jm-notice-label{
+  display:block;font:750 8px/1.5 Inter,'IBM Plex Sans Thai',sans-serif;
+  color:var(--jm-tone);letter-spacing:.13em;margin-bottom:2px
+}
+body .jm-notice-v19 .jm-toast-heading{
+  display:block;color:#f3f9ff;font:700 13px/1.35 'IBM Plex Sans Thai',Inter,sans-serif;letter-spacing:0;
+}
+body .jm-notice-v19 .jm-toast-description{
+  margin:3px 0 0!important;max-height:3.4em;min-width:0;
+  color:#9db1c3;font:450 11px/1.65 'IBM Plex Sans Thai',sans-serif;
+  word-break:normal;overflow-wrap:anywhere;overflow:hidden;
+}
+body .jm-notice-v19 .jm-toast-close{
+  width:28px;height:28px;min-width:28px;min-height:28px;padding:0!important;margin:0!important;
+  display:grid;place-items:center;align-self:start;justify-self:end;
+  border:1px solid #294053;border-radius:9px;
+  background:#101e2c;color:#9eb5ca;cursor:pointer;
+  pointer-events:auto!important;transition:border-color .15s,background .15s,color .15s;
+}
+body .jm-notice-v19 .jm-toast-close:hover{color:#fff;background:#193149;border-color:#477ca7}
+body .jm-notice-v19 .jm-toast-close:focus-visible{outline:2px solid #7fc2ff;outline-offset:2px}
+body .jm-notice-v19 .jm-notice-progress{
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--jm-tone),color-mix(in srgb,var(--jm-tone) 40%,#1f87ff));
+  transform-origin:left center;animation:jm-notice-countdown 4.4s linear both;
+  opacity:.8;pointer-events:none;
+}
+@keyframes jm-notice-countdown{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@media(max-width:640px){
+ body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card{
+   grid-template-columns:36px minmax(0,1fr) 28px;gap:10px;min-height:68px;
+   padding:12px 11px 14px!important;border-radius:14px!important;
+ }
+ body .jm-notice-v19 .jm-notice-icon{width:36px;height:36px;border-radius:10px}
+ body .jm-notice-v19 .jm-toast-heading{font-size:12.5px}
+ body .jm-notice-v19 .jm-toast-description{font-size:10.5px}
+}
+
+/* Authentication: premium motion that never transforms the mobile sidebar. */
+.login-screen .login-card{position:relative}
+.login-screen .login-card::after{
+  height:3px!important;background:linear-gradient(90deg,#147bfc,#6bc7ff,#168aff)!important;
+  box-shadow:0 0 18px #3fafff99;border-radius:0 0 15px 15px;
+}
+.jm-auth-loading .login-card{
+  border-color:#3a79ac;box-shadow:0 25px 95px #0009,0 0 0 1px #1d8fff22,0 0 48px #1763a522;
+}
+.jm-auth-loading .login-logo{animation:jm-v19-logo-pulse 1.35s ease-in-out infinite}
+.jm-auth-loading #loginBtn{position:relative;filter:saturate(1.1);box-shadow:0 6px 28px #117efc45}
+@keyframes jm-v19-logo-pulse{0%,100%{filter:drop-shadow(0 0 0 #50b5ff00)}50%{filter:drop-shadow(0 0 14px #45b1ff66)}}
+/* v16 and v17 main/sidebar transforms conflict with mobile drawer; don't animate those containers. */
+#adminApp.jm-admin-arrived .main,#adminApp.jm-admin-arrived .sidebar{animation:none!important}
+#adminApp.jm-admin-arrived .topbar{animation:jm-v19-head-in .46s cubic-bezier(.17,.79,.22,1) both}
+#adminApp.jm-admin-arrived .page.active{animation:jm-v19-panel-in .55s cubic-bezier(.17,.79,.2,1) .05s both}
+#adminApp.jm-admin-arrived .stats-grid>.stat:nth-child(1){animation:jm-v19-pop .55s ease .07s both}
+#adminApp.jm-admin-arrived .stats-grid>.stat:nth-child(2){animation:jm-v19-pop .55s ease .12s both}
+#adminApp.jm-admin-arrived .stats-grid>.stat:nth-child(3){animation:jm-v19-pop .55s ease .17s both}
+#adminApp.jm-admin-arrived .stats-grid>.stat:nth-child(4){animation:jm-v19-pop .55s ease .22s both}
+@keyframes jm-v19-head-in{from{opacity:.18;filter:brightness(.8)}to{opacity:1;filter:none}}
+@keyframes jm-v19-panel-in{from{opacity:0;filter:brightness(.8)}to{opacity:1;filter:none}}
+@keyframes jm-v19-pop{from{opacity:0;transform:translateY(9px) scale(.985)}to{opacity:1;transform:none}}
+/* On logout reuse existing v16 overlay. No delay or interference with Firebase signOut(). */
+.jm-signout-shade{background:radial-gradient(ellipse 400px 360px at center,#0e2844,#04101fe8 65%,#020810f5)!important;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.jm-signout-shade .jm-signout-orb{position:relative;width:76px;height:76px;border-radius:22px;border:1px solid #468cd1;background:linear-gradient(160deg,#133e6b,#081c31);box-shadow:0 0 0 8px #238fff12,0 0 50px #278dff36,0 24px 55px #000a}
+.jm-signout-shade .jm-signout-orb::before,.jm-signout-shade .jm-signout-orb::after{content:"";position:absolute;inset:-16px;border:1px solid #4da8ff39;border-radius:29px;animation:jm-v19-orbit 1.2s ease-in-out infinite alternate;pointer-events:none}
+.jm-signout-shade .jm-signout-orb::after{inset:-27px;border-color:#3a81dd1f;border-radius:34px;animation-delay:.2s}
+.jm-signout-shade strong{font:750 19px/1.5 'IBM Plex Sans Thai',sans-serif;letter-spacing:0;color:#f3f9ff}
+.jm-signout-shade small{font:750 10px/1.4 Inter,sans-serif;letter-spacing:.23em;color:#7cbffd}
+@keyframes jm-v19-orbit{from{opacity:.35;transform:scale(.97)}to{opacity:1;transform:scale(1.08)}}
+@media(max-width:960px){
+  /* A sticky drawer remains controlled exclusively by .open; never by login animation. */
+  #adminApp.jm-admin-arrived .sidebar{animation:none!important}
+  #adminApp.jm-admin-arrived .main{transform:none!important;animation:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .jm-notice-v19 .jm-notice-progress,#adminApp.jm-admin-arrived .topbar,#adminApp.jm-admin-arrived .page.active,#adminApp.jm-admin-arrived .stats-grid>.stat,.jm-auth-loading .login-logo,.jm-signout-shade .jm-signout-orb::before,.jm-signout-shade .jm-signout-orb::after{animation:none!important}
+ body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card{transition:none!important}
+}
+/* Tone variables on the actual toast card (more specific than the base card). */
+body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card[data-tone="success"]{--jm-tone:#32d99e;--jm-tone-soft:#123a2f}
+body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card[data-tone="error"]{--jm-tone:#ff7893;--jm-tone-soft:#402334}
+body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card[data-tone="warning"]{--jm-tone:#f8b967;--jm-tone-soft:#3a2b20}
+body .jm-toast-host.jm-notice-v19 .jm-toast.jm-notice-card[data-tone="info"]{--jm-tone:#66b5ff;--jm-tone-soft:#19334d}

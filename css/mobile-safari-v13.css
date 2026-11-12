@@ -1,0 +1,226 @@
+/* JOKEMOO Lucky v13 — responsive and iOS Safari compatibility (last stylesheet) */
+/* Prefer natural page scrolling and user pinch-to-zoom over viewport locks. */
+html { min-width: 0; max-width: 100%; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+body { min-width: 0; max-width: 100%; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
+img, video, canvas { max-width: 100%; }
+input, select, textarea, button { min-width: 0; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+:where(button, a, input, select, textarea):focus-visible { outline: 2px solid #64b6ff; outline-offset: 2px; }
+
+/* Customer: the entry card, wheel and modals shrink without clipping. */
+.app-shell, .screen, .code-wrap, .code-card, .welcome-panel,
+.wheel-screen, .wheel-layout, .wheel-panel, .side-panel, .side-card { min-width: 0; }
+.code-wrap > *, .wheel-layout > * { min-width: 0; }
+.line-contact-copy, .history-entry-copy, .card-head > div { min-width: 0; }
+.line-contact-copy strong, .line-contact-copy small { overflow-wrap: anywhere; }
+.wheel-stage { max-width: min(100%, 378px); }
+.wheel-frame, .wheel-disk, .wheel-disk canvas { max-width: 100%; }
+.result-modal, .history-modal { padding-left: max(10px, env(safe-area-inset-left)); padding-right: max(10px, env(safe-area-inset-right)); }
+.result-card, .history-card { max-width: 100%; }
+.history-modal .history-card-body, .history-card-body { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+
+/* Admin: prevent flex/grid children pushing the entire viewport sideways. */
+.admin-app, .main, .content, .page, .panel, .panel-head, .topbar,
+.chart-grid, .chart-grid > *, .stats-grid, .stats-grid > *,
+.create-grid, .create-grid > *, .rate-grid, .rate-grid > *,
+.accounts-grid, .accounts-grid > *, .roles-account-grid, .roles-account-grid > *,
+.profile-settings-layout, .profile-settings-layout > *, .profile-main-panels,
+.role-account-top, .role-list-panel, .role-users-list { min-width: 0; }
+.topbar, .top-left, .top-actions { min-width: 0; }
+.top-left > div, .topbar .top-actions { min-width: 0; }
+.table-wrap { display: block; width: 100%; max-width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.table-wrap table { width: 100%; border-collapse: collapse; }
+.role-user-meta, .role-user-meta > * { min-width: 0; }
+.role-user-meta small { overflow-wrap: anywhere; }
+.profile-hero, .profile-identity, .profile-hero-text, .profile-photo-controls, .profile-edit-form, .profile-field { min-width: 0; }
+.profile-field input, .security-field input, .fields input, .fields select { max-width: 100%; }
+.v7-modal, .admin-modal { box-sizing: border-box; }
+.v7-modal-card, .confirm-card, .history-detail-card { max-width: 100%; -webkit-overflow-scrolling: touch; }
+
+/* Tablets / narrow laptops, including iPad split screen. */
+@media (max-width: 1100px) {
+  .main .content { padding-right: 18px; padding-left: 18px; }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chart-grid, .create-grid, .rate-grid { grid-template-columns: minmax(0, 1fr); }
+  .panel-head > div { min-width: 0; }
+  .role-list-panel .search { width: min(260px, 100%); max-width: 100%; }
+  .profile-settings-layout { grid-template-columns: minmax(0,1fr); }
+}
+
+@media (max-width: 900px) {
+  .code-screen { padding: 24px max(16px,env(safe-area-inset-right)) 30px max(16px,env(safe-area-inset-left)); }
+  .code-wrap { width: min(620px,100%); grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .welcome-panel { padding: 0; text-align: center; }
+  .welcome-panel .brand-logo { width: min(220px, 60%); margin: 0 auto 12px; }
+  .welcome-panel .brand-stroke { margin-inline: auto; }
+  .welcome-panel > p { margin-inline: auto; }
+  .wheel-layout { grid-template-columns: minmax(0,1fr); gap: 15px; }
+  .wheel-stage { width: min(340px, calc(100vw - 82px)); }
+  .side-card { height: auto; }
+}
+
+/* Phones, portrait and compact Safari windows. */
+@media (max-width: 640px) {
+  html, body { width: 100%; }
+  /* iOS Safari focuses/zooms inputs smaller than 16px. */
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+    font-size: 16px !important;
+    line-height: normal;
+  }
+  button, a { -webkit-touch-callout: default; }
+  .code-screen { min-height: 100vh; padding: max(18px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(25px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left)); align-items: start; }
+  .code-wrap { width: 100%; max-width: 500px; gap: 15px; }
+  .brand-logo { width: min(205px, 61vw); margin: 0 auto 8px; }
+  .welcome-panel h1 { font-size: clamp(27px,8vw,36px); line-height: 1.1; margin: 9px 0 8px; overflow-wrap: anywhere; }
+  .welcome-panel > p { font-size: 12px; line-height: 1.6; }
+  .brand-stroke { margin-top: 11px; }
+  .code-card { width: 100%; padding: 18px 15px; border-radius: 17px; }
+  .code-card .card-head { margin-bottom: 15px; }
+  .code-card .card-head h2 { font-size: clamp(19px,5.5vw,24px); }
+  .code-input-wrap { height: 53px; }
+  .code-input-wrap input { width: 0; flex: 1; font-size: 16px !important; }
+  .primary-action { min-height: 52px; }
+  .line-contact { min-height: 57px; grid-template-columns: 38px minmax(0,1fr) auto; gap: 9px; }
+  .line-contact-arrow { display: none; }
+  .line-contact-id { font-size: 9px; }
+  .safe-note { line-height: 1.6; }
+  .wheel-screen { padding-inline: max(10px,env(safe-area-inset-left),env(safe-area-inset-right)); }
+  .wheel-topbar { height: 64px; gap: 9px; }
+  .mini-brand { min-width: 0; flex: 1 1 auto; }
+  .mini-brand img { width: min(128px,100%); }
+  .text-button { flex: 0 1 auto; max-width: 48%; font-size: 11px; overflow-wrap: anywhere; }
+  .wheel-layout { margin-top: 13px; gap: 14px; }
+  .wheel-panel { padding: 16px 12px 20px; }
+  .wheel-panel-head { gap: 6px; }
+  .code-badge { min-width: 0; flex: 1; }
+  .code-badge strong { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .spin-badge { flex: 0 0 auto; }
+  .wheel-stage { width: min(310px,calc(100vw - 63px)); margin: 23px auto 35px; }
+  .wheel-panel .spin-action { width: min(330px,100%); min-height: 53px; }
+  .side-card { padding: 17px 15px; }
+  .prize-toggle-title { min-width: 0; }
+  .prize-toggle-title b { font-size: 12px; }
+  .prize-toggle-meta { flex: 0 0 auto; }
+  .result-card, .history-modal .history-card { width: 100%; max-width: 100%; max-height: calc(100vh - 20px); }
+  .history-modal .history-card-head { gap: 8px; }
+  .history-overview { grid-template-columns: 37px minmax(0,1fr) auto; margin-inline: 12px; padding: 10px; }
+  .history-overview-count { min-width: 0; }
+  .history-list-header { margin-inline: 13px; }
+  .history-modal .history-card-body { padding: 12px; }
+  .jm-toast-host { top: max(12px,env(safe-area-inset-top)); left: max(12px,env(safe-area-inset-left)); right: max(12px,env(safe-area-inset-right)); }
+
+  /* Admin navigation and header. The menu button remains reachable. */
+  .sidebar { width: min(290px,86vw); max-width: calc(100% - 46px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .sidebar-overlay.show { display: block; position: fixed; inset: 0; }
+  .main { width: 100%; max-width: 100%; margin-left: 0; }
+  .topbar { height: 64px; padding-inline: max(12px,env(safe-area-inset-left),env(safe-area-inset-right)); gap: 8px; }
+  .menu { flex: 0 0 42px; width: 42px; height: 42px; }
+  .top-left { flex: 1 1 auto; min-width: 0; gap: 8px; }
+  .top-left > div { min-width: 0; }
+  .top-left h2 { font-size: clamp(15px,4.4vw,19px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .top-left p { display: none; }
+  .top-actions { flex: 0 0 auto; gap: 6px; }
+  .top-profile-button { min-width: 39px; min-height: 40px; }
+  .top-role-mark { display: none; }
+  .account-dropdown { right: 0; width: min(282px, calc(100vw - 28px)); max-width: calc(100vw - 28px); }
+  .content, .main .content { padding: 13px max(12px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left)); }
+  .page { width: 100%; max-width: 100%; }
+  .panel { padding: 15px; border-radius: 16px; }
+  .panel-head { flex-wrap: wrap; }
+  .panel-head .search, .panel-head.wrap .search, .role-list-panel .search { flex: 1 1 100%; max-width: 100%; width: 100%; }
+  .stats-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+  .stat { padding: 13px; min-height: 108px; }
+  .chart-grid, .create-grid, .rate-grid, .accounts-grid, .roles-account-grid { grid-template-columns: minmax(0,1fr); }
+  .chart-box { height: 238px; }
+  .table-panel { min-width: 0; }
+  .table-wrap { width: 100%; margin-inline: 0; border-radius: 10px; }
+  .table-wrap table { min-width: 730px; }
+  #page-codes .code-tools { width: 100%; min-width: 0; }
+  #page-codes .code-tools .search { width: 100%; min-width: 0; flex: 1 1 100%; }
+  .rate-footer { min-width: 0; }
+  .rate-row { min-width: 0; }
+  .role-account-top, .role-account-actions { min-width: 0; }
+  .role-account-actions { max-width: 100%; flex-wrap: wrap; gap: 8px; }
+  .role-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+  .role-metrics > div { min-width: 0; }
+  .role-metrics > div:last-child { grid-column: 1/-1; }
+  .role-user-row { min-width: 0; }
+  .role-user-meta { flex: 1 1 100px; }
+  .role-user-manage { min-height: 38px; }
+  .profile-settings-layout { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .profile-settings-nav { width: 100%; max-width: 100%; }
+  .profile-settings-nav .profile-tab { min-width: 0; }
+  .profile-main-panels > .panel { padding: 16px; }
+  .profile-hero { width: 100%; padding: 20px 15px; }
+  .profile-identity { flex-wrap: wrap; }
+  .profile-hero-text { min-width: 0; }
+  .profile-hero-text p { overflow-wrap: anywhere; }
+  .profile-hero-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); width: 100%; gap: 8px; }
+  .profile-hero-action { min-width: 0; width: 100%; white-space: normal; min-height: 43px; }
+  .profile-photo-editor { min-width: 0; }
+  .profile-photo-controls { width: 100%; }
+  .profile-edit-form { grid-template-columns: minmax(0,1fr); }
+  .security-form { grid-template-columns: minmax(0,1fr); }
+  .v7-modal, .admin-modal { padding: max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left)); }
+  .v7-modal-card, .confirm-card, .history-detail-card { width: 100%; max-width: min(100%,460px); max-height: calc(100vh - 24px); overflow-y: auto; }
+  .v7-modal-card .v7-field input, .v7-modal-card .v7-field select { width: 100%; }
+  .jm-activity-row { flex-wrap: wrap; }
+  .jm-activity-row time { margin-left: 18px; }
+  .admin-notification-stack, .jm-toast-host { max-width: 100%; }
+}
+
+/* Narrow phones including 320–375px viewports. */
+@media (max-width: 380px) {
+  .welcome-panel h1 { font-size: 27px; }
+  .code-card { padding-inline: 12px; }
+  .line-contact { grid-template-columns: 34px minmax(0,1fr); gap: 8px; }
+  .line-contact-id { display: none; }
+  .line-contact-icon { width: 34px; height: 34px; }
+  .wheel-stage { width: min(260px, calc(100vw - 57px)); }
+  .wheel-hub { width: 58px; height: 58px; }
+  .history-overview { grid-template-columns: 30px minmax(0,1fr) auto; gap: 7px; }
+  .history-overview-icon { width: 30px; height: 30px; font-size: 17px; }
+  .history-overview-count strong { font-size: 19px; }
+  .role-metrics { grid-template-columns: minmax(0,1fr); }
+  .role-metrics > div:last-child { grid-column: auto; }
+  .topbar { padding-inline: 10px; }
+  .top-profile-button { padding-inline: 4px; }
+  .profile-hero-actions { grid-template-columns: minmax(0,1fr); }
+  .profile-identity-chips { flex-wrap: wrap; }
+  .rate-footer > div:last-child { grid-template-columns: 1fr; }
+}
+
+/* Landscape phones: take advantage of the width, but keep the window scrollable. */
+@media (max-height: 530px) and (orientation: landscape) and (max-width: 940px) {
+  .code-screen { min-height: 100vh; padding-block: 12px; }
+  .code-wrap { width: min(850px,100%); gap: 15px; }
+  .wheel-stage { width: min(245px, 35vw); margin-block: 12px 19px; }
+  .wheel-layout { margin-top: 8px; }
+  .wheel-panel { padding: 12px; }
+  .login-screen { min-height: 100vh; align-items: start; padding-block: 12px; }
+  .login-card { margin: auto; }
+  .topbar { height: 58px; }
+}
+
+/* Dynamic viewport and home indicator support in modern Safari. Old Safari keeps vh fallback above. */
+@supports (height: 100dvh) {
+  .screen, .app-shell, .main, .login-screen { min-height: 100dvh; }
+  @media (max-width: 640px) {
+    .code-screen { min-height: 100dvh; }
+    .result-card, .history-modal .history-card,
+    .v7-modal-card, .confirm-card, .history-detail-card { max-height: calc(100dvh - 24px); }
+    .history-modal .history-card-body { max-height: calc(100dvh - 115px); }
+  }
+}
+
+/* Keep wheel animations: only reduce hover work on touch devices. */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover, .primary-action:hover, .spin-action:hover, .line-contact:hover,
+  .history-entry:hover, .nav-item:hover, .profile-hero-action:hover { transform: none; }
+  .wheel-stage.is-spinning .wheel-disk { will-change: transform; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wheel-stage.is-spinning .pointer { animation-duration: .18s; }
+}

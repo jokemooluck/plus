@@ -1,0 +1,25 @@
+/* Admin password-change screen. No email/OTP recovery system. */
+.security-panel{margin-top:20px;padding:23px 24px 19px;overflow:hidden}
+.security-header{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid #1b2d41}
+.security-header>div:nth-child(2){flex:1;min-width:0}
+.security-icon{display:grid;place-items:center;width:46px;height:46px;flex:0 0 46px;border-radius:13px;color:#70b8ff;background:#10273d;border:1px solid #24445f}
+.security-kicker{display:block;margin-bottom:3px;font:700 9px/1.4 Inter,sans-serif;color:#6aaff0;letter-spacing:.13em}
+.security-header h3{margin:0;font-size:19px;letter-spacing:-.025em}
+.security-header p{margin:5px 0 0;font-size:11px;color:#7c90a6;line-height:1.7}
+.security-label{padding:6px 10px;border-radius:999px;background:#102439;border:1px solid #20415d;color:#8bbfea;font-size:10px;white-space:nowrap}
+.security-current{margin-top:16px;color:#8397ab;font-size:11px}.security-current strong{margin-left:7px;color:#d7edff;font-family:Inter,sans-serif;font-size:12px}
+.security-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:17px}
+.security-field{display:flex;min-width:0;flex-direction:column;gap:7px;color:#a4b8ca;font-size:11px;font-weight:600}
+.security-field input{width:100%;height:46px;border:1px solid #23364c;border-radius:11px;background:#080f19;color:#f0f6fd;padding:0 13px;outline:none;font-size:13px;transition:border-color .15s,box-shadow .15s}
+.security-field input:focus{border-color:#288fff;box-shadow:0 0 0 3px rgba(33,143,255,.12)}
+.security-submit{grid-column:1/-1;display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:3px}
+.security-submit .btn{height:44px}
+.security-feedback{font-size:11px;color:#96b6d0;line-height:1.6}.security-feedback.is-success{color:#74dcb2}.security-feedback.is-error{color:#ff94a0}
+.security-footnote{margin:17px 0 0;color:#72889b;font-size:10px;line-height:1.8;border-top:1px solid #1b2b3a;padding-top:11px}
+.security-footnote code{color:#c0d1e2;font-size:10px}
+@media(max-width:850px){.security-form{grid-template-columns:1fr 1fr}.security-field:first-child{grid-column:1/-1}}
+@media(max-width:560px){.security-panel{padding:18px 15px}.security-header{gap:10px;align-items:flex-start;flex-wrap:wrap}.security-icon{width:39px;height:39px;flex-basis:39px}.security-header h3{font-size:16px}.security-label{margin-left:49px}.security-form{grid-template-columns:1fr;gap:12px}.security-field:first-child{grid-column:auto}.security-submit .btn{width:100%}}
+@media(max-width:560px){
+  .security-header>div:nth-child(2){flex:1 1 calc(100% - 55px)}
+  .security-header .security-label{margin:2px 0 0 49px;flex:0 0 auto}
+}

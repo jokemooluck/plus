@@ -1,0 +1,33 @@
+/* Theme layer. All editable theme values are sourced from ../site-config.js. */
+body {background:var(--site-background,#05070a);color:var(--site-text,#f5f7fa)}
+/* customer site */
+.page-bg{background:radial-gradient(900px 520px at 10% -6%,color-mix(in srgb,var(--site-accent) 12%,transparent),transparent 62%),var(--site-background)}
+.welcome-panel h1 span,.input-icon{color:var(--site-accent-light)}
+.code-card:before,.brand-stroke:before{background:var(--site-accent)}
+.code-card{background:var(--site-card)}
+.primary-action,.spin-action{--blue:var(--site-accent);--blue-2:var(--site-accent-dark)}
+/* admin sidebar: follows supplied WORKSPACE reference */
+.sidebar{width:232px;background:var(--site-sidebar);border-right:1px solid rgba(255,255,255,.045);padding:16px 13px 20px}
+.sidebar .brand{display:none}
+.workspace-heading{color:var(--site-accent-light);font-family:Inter,"IBM Plex Sans Thai",sans-serif;font-size:10px;font-weight:700;letter-spacing:.19em;line-height:1.2;padding:3px 6px 14px}
+.sidebar nav{display:flex;flex-direction:column;gap:7px}
+.sidebar .nav-item{height:48px;min-height:48px;width:100%;padding:0 13px;gap:14px;border-radius:13px;background:transparent;border:1px solid transparent;color:var(--site-sidebar-text);box-shadow:none;position:relative;transition:background .17s,color .17s,border-color .17s}
+.sidebar .nav-item::before{display:none!important}
+.sidebar .nav-item .nav-icon{flex:0 0 19px;width:19px;height:19px;color:inherit;stroke:currentColor}
+.sidebar .nav-item span{font-size:13px;font-weight:500;letter-spacing:0}
+.sidebar .nav-item:hover{background:rgba(116,167,224,.055);color:#d7e5f8;transform:none}
+.sidebar .nav-item.active{background:var(--site-sidebar-active);border:1px solid var(--site-sidebar-border);color:var(--site-accent-light);box-shadow:none}
+.sidebar .nav-item.active .nav-icon{color:var(--site-accent)}
+.sidebar-bottom{border-color:rgba(255,255,255,.055)}
+.sidebar .logout{border-radius:10px}
+.main{margin-left:232px}
+.topbar{background:var(--site-sidebar)}
+.panel,.stat,.login-card{background:var(--site-card)}
+.btn.primary{background:var(--site-accent)}
+.btn.primary:hover{background:var(--site-accent-dark)}
+.eyebrow,.section-kicker,.result-kicker,.generated strong,.code-pill{color:var(--site-accent-light)}
+@media (min-width:961px) and (max-width:1280px){.sidebar{width:232px}.main{margin-left:232px}}
+@media (max-width:960px){.sidebar{width:min(290px,82vw)}.main{margin-left:0}}
+html.admin-compact-webview .sidebar{width:min(290px,82%)}
+html.admin-compact-webview .main{margin-left:0}
+@media (max-height:640px) and (min-width:700px){.sidebar nav{gap:5px}.sidebar .nav-item{height:44px;min-height:44px}.workspace-heading{padding-bottom:9px}}
