@@ -1,0 +1,32 @@
+/* JOKEMOO v21 — compact, tidy profile appearance editor (desktop/tablet/iPhone). */
+#page-profile .profile-photo-editor{
+  grid-template-columns:92px minmax(0,1fr);gap:18px;align-items:center;
+  padding:15px 17px;border-radius:13px;
+}
+#page-profile .profile-photo-stage{padding-right:16px;gap:8px}
+#page-profile .profile-avatar-preview{width:65px;height:65px;flex-basis:65px;border-radius:16px;font-size:22px}
+#page-profile .profile-photo-stage-hint{font-size:8px;letter-spacing:.08em}
+#page-profile .profile-control-eyebrow{font-size:8px;margin-bottom:3px}
+#page-profile .profile-photo-controls>strong{font-size:13px}
+#page-profile .profile-photo-controls>p{font-size:10px;margin:3px 0 7px}
+#page-profile .jm-photo-actions{margin:6px 0 9px;gap:7px}
+#page-profile .jm-upload-btn,#page-profile .jm-remove-btn{min-height:35px;padding:0 12px;font-size:11px;border-radius:9px}
+#page-profile .jm-upload-btn svg{width:15px;height:15px}
+#page-profile .profile-photo-controls>.profile-field{gap:5px;font-size:10px}
+#page-profile .profile-photo-controls>.profile-field input{height:39px;font-size:12px;border-radius:9px;padding:0 11px}
+#page-profile .profile-photo-controls>small{margin-top:5px;font-size:9px;line-height:1.35}
+#page-profile .jm-remove-btn:disabled{opacity:.65;cursor:progress;transform:none}
+@media(max-width:600px){
+  #page-profile .profile-photo-editor{grid-template-columns:1fr;padding:12px 13px;gap:10px}
+  #page-profile .profile-photo-stage{flex-direction:row;border-right:0;border-bottom:1px solid #284057;padding:0 0 10px;gap:11px}
+  #page-profile .profile-avatar-preview{width:52px;height:52px;flex-basis:52px;font-size:20px;border-radius:14px}
+  #page-profile .profile-photo-stage-hint{font-size:9px}
+  #page-profile .profile-photo-controls>p{margin:2px 0 6px}
+  #page-profile .jm-photo-actions{display:flex;flex-wrap:wrap;gap:7px;margin:7px 0 8px}
+  #page-profile .jm-upload-btn,#page-profile .jm-remove-btn{min-height:37px;font-size:11px}
+  #page-profile .profile-photo-controls>.profile-field input{height:42px;font-size:16px}
+}
+@media(max-width:360px){
+  #page-profile .jm-photo-actions{display:grid;grid-template-columns:minmax(0,1fr) auto}
+  #page-profile .jm-upload-btn,#page-profile .jm-remove-btn{padding:0 9px;font-size:10px}
+}

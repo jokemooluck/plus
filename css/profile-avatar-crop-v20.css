@@ -1,0 +1,28 @@
+/* v20 — avatar upload + crop; minimal effects for Safari/iPhone */
+#page-profile .jm-photo-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:12px 0 14px}
+#page-profile .jm-upload-btn,#page-profile .jm-remove-btn{display:inline-flex;gap:8px;justify-content:center;align-items:center;min-height:40px;padding:0 15px;border-radius:10px;font:600 12px 'IBM Plex Sans Thai',Inter,sans-serif;cursor:pointer;transition:background .16s,border-color .16s,transform .16s}
+#page-profile .jm-upload-btn{color:#fff;background:linear-gradient(135deg,#1674d2,#1961b6);border:1px solid #418add}
+#page-profile .jm-upload-btn:hover{background:#287fd1;transform:translateY(-1px)}
+#page-profile .jm-remove-btn{background:#17212e;border:1px solid #354759;color:#f4a8b0}
+#page-profile .jm-remove-btn:hover{background:#271e2a;border-color:#a45868}
+#page-profile .profile-avatar-preview.has-photo,#page-profile .profile-avatar-large.has-photo{background-size:cover;background-position:center;background-repeat:no-repeat}
+.jm-crop-modal[hidden]{display:none!important}
+.jm-crop-modal{position:fixed;inset:0;z-index:2147480000;display:grid;place-items:center;padding:16px;isolation:isolate}
+.jm-crop-backdrop{position:absolute;inset:0;background:rgba(0,5,13,.8);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+.jm-crop-card{position:relative;z-index:1;box-sizing:border-box;width:min(100%,430px);max-height:calc(100dvh - 30px);overflow:auto;padding:22px;border:1px solid #294661;border-radius:20px;background:#0e1926;box-shadow:0 18px 60px #0008;color:#f1f7ff;-webkit-overflow-scrolling:touch}
+.jm-crop-header{display:flex;justify-content:space-between;gap:8px;align-items:start;margin-bottom:18px}
+.jm-crop-header span{font:700 10px Inter,sans-serif;letter-spacing:.17em;color:#69a5d4}
+.jm-crop-header h3{margin:5px 0;font-size:20px}
+.jm-crop-header p{margin:0;font-size:12px;line-height:1.5;color:#96abc0}
+.jm-crop-close{width:36px;height:36px;flex:none;border:1px solid #33475c;border-radius:10px;background:#182739;color:#cce0f0;font-size:25px;cursor:pointer}
+.jm-crop-canvas-wrap{max-width:320px;margin:0 auto;border-radius:17px;overflow:hidden;border:2px solid #3a83be;box-shadow:0 8px 28px #0006}
+#jmCropCanvas{width:100%;height:auto;aspect-ratio:1;display:block;cursor:grab;touch-action:none;outline:none}
+#jmCropCanvas:active{cursor:grabbing}
+#jmCropCanvas:focus-visible{outline:3px solid #7bbcff;outline-offset:-3px}
+.jm-crop-zoom{display:grid;gap:10px;font-size:12px;font-weight:600;color:#bbd4e8;padding:18px 2px 12px}
+.jm-crop-zoom input{width:100%;accent-color:#489de7;cursor:pointer}
+.jm-crop-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+.jm-crop-footer .btn{min-height:43px;min-width:112px}
+body.jm-crop-open{overflow:hidden}
+@media(max-width:540px){#page-profile .jm-photo-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}#page-profile .jm-upload-btn{padding:0 12px;font-size:11px}#page-profile .jm-remove-btn{padding:0 12px;font-size:11px}.jm-crop-card{padding:16px;border-radius:16px}.jm-crop-header h3{font-size:18px}.jm-crop-header p{font-size:11px}}
+@media(prefers-reduced-motion:reduce){#page-profile .jm-upload-btn,#page-profile .jm-remove-btn{transition:none}#page-profile .jm-upload-btn:hover{transform:none}}

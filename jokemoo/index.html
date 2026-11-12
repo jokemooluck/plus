@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="../css/ui-fixes-v17.css">
   <link rel="stylesheet" href="../css/admin-history-alignment-v18.css">
   <link rel="stylesheet" href="../css/refinements-v19.css">
+  <link rel="stylesheet" href="../css/profile-avatar-crop-v20.css">
+  <link rel="stylesheet" href="../css/profile-avatar-compact-v21.css">
   <link rel="icon" type="image/png" href="../logo.png">
 </head>
 <body>
@@ -248,7 +250,7 @@
               <article class="panel profile-pane is-current" id="profile-tab-general" data-profile-pane="general">
                 <div class="profile-pane-head"><span class="profile-pane-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a7 7 0 0 0-14 0v2"/><circle cx="13" cy="7" r="4"/></svg></span><div><span class="security-kicker">PERSONAL INFO</span><h3>ข้อมูลโปรไฟล์</h3><p>ตั้งชื่อที่แสดงในหน้าแอดมินและตรวจสอบข้อมูลบัญชี</p></div></div>
                 <form id="profileInfoForm" class="profile-edit-form">
-                  <div class="profile-photo-editor"><div class="profile-photo-stage"><span class="profile-avatar-preview" id="profileAvatarPreview">D</span><span class="profile-photo-stage-hint">PROFILE PHOTO</span></div><div class="profile-photo-controls"><span class="profile-control-eyebrow">YOUR APPEARANCE</span><strong>รูปภาพประจำบัญชี</strong><p>รูปนี้จะปรากฏที่เมนูบัญชีและรายชื่อผู้ดูแล</p><label class="profile-field">ลิงก์รูปภาพ HTTPS<input id="profilePhotoUrl" type="url" inputmode="url" autocomplete="url" maxlength="1024" placeholder="https://example.com/my-photo.jpg"></label><small>ใช้ URL รูปภาพ HTTPS ที่เข้าถึงได้ หรือเว้นว่างเพื่อใช้อักษรย่อ</small></div></div>
+                  <div class="profile-photo-editor"><div class="profile-photo-stage"><span class="profile-avatar-preview" id="profileAvatarPreview">D</span><span class="profile-photo-stage-hint">PROFILE PHOTO</span></div><div class="profile-photo-controls"><span class="profile-control-eyebrow">YOUR APPEARANCE</span><strong>รูปภาพประจำบัญชี</strong><p>รูปนี้จะปรากฏที่เมนูบัญชีและรายชื่อผู้ดูแล</p><div class="jm-photo-actions"><button type="button" class="jm-upload-btn" id="profileUploadBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V3m0 0-5 5m5-5 5 5M4 16v4h16v-4"/></svg> อัปโหลดและครอบตัดรูป</button><button type="button" class="jm-remove-btn" id="profileRemovePhoto" title="ลบรูปทันทีและใช้อักษรตัวแรกของ Username" aria-label="ลบรูปโปรไฟล์แล้วกลับไปใช้อักษรตัวแรกของ Username">ลบรูป</button></div><input type="file" id="profileUploadInput" accept="image/jpeg,image/png,image/webp" hidden><label class="profile-field">หรือใช้ลิงก์รูปภาพ HTTPS<input id="profilePhotoUrl" type="url" inputmode="url" autocomplete="url" maxlength="1024" placeholder="https://example.com/my-photo.jpg"></label><small id="profilePhotoMode" aria-live="polite">ใช้อักษรย่อ</small><small>รองรับ JPG / PNG / WebP · ลบรูปแล้วกลับเป็นอักษรแรกของ Username ทันที</small></div></div>
                   <label class="profile-field">ชื่อที่แสดง<input id="profileDisplayName" type="text" autocomplete="nickname" maxlength="60" placeholder="เช่น Bankkizz" required><small>ชื่อที่ใช้แสดงบนหน้าโปรไฟล์ ไม่เปลี่ยน Username ที่ใช้ล็อกอิน</small></label>
                   <label class="profile-field">ชื่อผู้ใช้ (Username)<input id="profileUsername" type="text" disabled readonly></label>
                   <label class="profile-field">บัญชีที่ใช้ยืนยันตัวตน<input id="profileAuthEmail" type="text" disabled readonly><small>บัญชี Firebase ที่ใช้เข้าสู่ระบบ (แก้ไขจากหน้านี้ไม่ได้)</small></label>
@@ -360,6 +362,15 @@
     </div>
   </div>
 
+  <div id="jmCropModal" class="jm-crop-modal" role="presentation" hidden>
+    <div class="jm-crop-backdrop" data-jm-crop-close></div>
+    <section class="jm-crop-card" role="dialog" aria-modal="true" aria-labelledby="jmCropHeading">
+      <div class="jm-crop-header"><div><span>PROFILE IMAGE</span><h3 id="jmCropHeading">ครอบตัดรูปโปรไฟล์</h3><p>ลากรูปเพื่อจัดตำแหน่งและปรับขนาดก่อนบันทึก</p></div><button type="button" class="jm-crop-close" data-jm-crop-close aria-label="ปิด">×</button></div>
+      <div class="jm-crop-canvas-wrap"><canvas width="320" height="320" id="jmCropCanvas" role="img" tabindex="0" aria-label="เลื่อนรูปเพื่อเลือกพื้นที่ครอบตัดด้วยการลากหรือปุ่มลูกศร"></canvas></div>
+      <label class="jm-crop-zoom">ปรับขนาดรูป <input id="jmCropZoom" type="range" min="1" max="3" step="0.01" value="1" aria-label="ซูมรูป"></label>
+      <div class="jm-crop-footer"><button type="button" class="btn soft" data-jm-crop-close>ยกเลิก</button><button type="button" class="btn primary" id="jmCropApply">ใช้รูปนี้</button></div>
+    </section>
+  </div>
   <div class="toast" id="toast" aria-hidden="true"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>

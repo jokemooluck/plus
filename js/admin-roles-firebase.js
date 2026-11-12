@@ -9,7 +9,7 @@
   const cfg = window.JOKEMOO_SITE_CONFIG || {};
   const rootEmail = String(cfg.admin?.rootEmail || '').trim().toLowerCase();
   const roles = Object.freeze({ dev: 'DEV', owner: 'OWNER', admin: 'ADMIN' });
-  const state = { user: null, role: null, users: [], selected: null, adminsUnsubscribe: null, selfUnsubscribe: null, epoch: 0 };
+  const state = { user: null, role: null, users: [], selected: null, adminsUnsubscribe: null, selfUnsubscribe: null, avatarsUnsubscribe: null, avatarImages: Object.create(null), epoch: 0 };
   const accountModal = $('#v7AccountModal');
   const createModal = $('#roleCreateModal');
   let createReturnFocus = null;
@@ -17,7 +17,7 @@
   const firestore = () => { try { return firebase.apps.length ? firebase.firestore() : null; } catch { return null; } };
   const getRoot = (user) => Boolean(user && rootEmail && String(user.email || '').toLowerCase() === rootEmail);
   const isManager = () => state.role === 'dev' || state.role === 'owner';
-  const safeImage = (value) => { try { const u = new URL(value || ''); return u.protocol === 'https:' ? u.href : ''; } catch { return ''; } };
+  const safeImage = value => { if (typeof value === 'string' && value.length <= 90000 && /^data:image\/(?:webp|jpeg);base64,[A-Za-z0-9+/=]+$/.test(value)) return value; try { const u = new URL(value || ''); return u.protocol === 'https:' ? u.href : ''; } catch { return ''; } };
   const initials = (text) => String(text || 'A').trim().substring(0, 1).toUpperCase();
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const displayRole = (role) => roles[role] || '—';
@@ -55,7 +55,7 @@
     const name = user.displayName || username;
     $('#menuDisplayName').textContent = name;
     $('#menuUsername').textContent = '@' + username;
-    ['#menuAvatar','#topAvatar','#sidebarAvatar','#profileAvatarPreview'].forEach(id => setAvatar($(id), user.photoURL, name));
+    ['#menuAvatar','#topAvatar','#sidebarAvatar','#profileAvatarPreview'].forEach(id => setAvatar($(id), window.JOKEMOO_PROFILE_IMAGE_DATA || user.photoURL, username));
   }
   function toggleMenu(open) {
     const dropdown = $('#accountDropdown');
@@ -85,6 +85,20 @@
   window.addEventListener('jokemoo-profile-updated', () => {
     renderIdentity(auth()?.currentUser);
   });
+  window.addEventListener('jokemoo-avatar-changed', () => {
+    const user = auth()?.currentUser;
+    renderIdentity(user);
+    if (user && isManager()) {
+      state.avatarImages[user.uid] = window.JOKEMOO_PROFILE_IMAGE_DATA || '';
+      // Keep root/manager roster in sync even when there is no admins document.
+      const self = state.users.find(member => member.id === user.uid);
+      if (self) {
+        self.photoURL = user.photoURL || '';
+        self.displayName = user.displayName || self.username || '';
+      }
+      renderMembers();
+    }
+  });
   function syncRole() {
     if(state.user){ window.JOKEMOO_ADMIN_IDENTITY={uid:state.user.uid,name:state.user.displayName||(state.user.email||'admin').split('@')[0],role:state.role||'admin'};window.dispatchEvent(new CustomEvent('jokemoo-role-synced',{detail:{role:state.role}})); }
     roleBadge($('#menuRole'), state.role);
@@ -109,6 +123,8 @@
   function clearListeners() {
     if (state.selfUnsubscribe) { state.selfUnsubscribe(); state.selfUnsubscribe = null; }
     if (state.adminsUnsubscribe) { state.adminsUnsubscribe(); state.adminsUnsubscribe = null; }
+    if (state.avatarsUnsubscribe) { state.avatarsUnsubscribe(); state.avatarsUnsubscribe = null; }
+    state.avatarImages = Object.create(null);
   }
   const isActive = data => data?.active !== false;
   function dataRole(data) {
@@ -127,7 +143,16 @@
   function attachMembers() {
     if (!isManager()) {
       if (state.adminsUnsubscribe) { state.adminsUnsubscribe(); state.adminsUnsubscribe = null; }
+      if (state.avatarsUnsubscribe) { state.avatarsUnsubscribe(); state.avatarsUnsubscribe = null; }
       return;
+    }
+    if (!state.avatarsUnsubscribe) {
+      state.avatarsUnsubscribe = firestore().collection('admin_avatars').onSnapshot(snapshot => {
+        const images = Object.create(null);
+        snapshot.forEach(doc => { images[doc.id] = safeImage(doc.data()?.imageData) || ''; });
+        state.avatarImages = images;
+        renderMembers();
+      }, error => console.warn('JOKEMOO avatar directory:', error?.code || 'unknown'));
     }
     if (state.adminsUnsubscribe) return;
     state.adminsUnsubscribe = firestore().collection('admins').onSnapshot(snapshot => {
@@ -194,10 +219,10 @@
     listNode.innerHTML = visible.length ? visible.map(item => {
       const username = String(item.username || (item.email || 'admin').split('@')[0]);
       const name = item.displayName || username;
-      const photo = safeImage(item.photoURL);
+      const photo = safeImage(state.avatarImages[item.id] || item.photoURL);
       const content = photo
         ? `<img src="${esc(photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`
-        : esc(initials(name));
+        : esc(initials(username));
       return `<div class="role-user-row">
         <div class="role-user-avatar">${content}</div>
         <div class="role-user-meta"><strong>${esc(name)}</strong><small>@${esc(username)}</small><small class="jm-added-by">${item.createdBy ? `เพิ่มโดย @${esc(item.createdBy)}` : (item.isRoot ? "บัญชีหลัก DEV" : "ไม่พบผู้เพิ่มในข้อมูลเดิม")}</small></div>
@@ -300,7 +325,7 @@
     state.selected = member;
     $('#v7TargetUsername').textContent = member.username || 'admin';
     $('#v7TargetUid').textContent = 'UID ' + String(member.id).slice(0, 10) + '…';
-    setAvatar($('#v7TargetAvatar'), member.photoURL, member.username);
+    setAvatar($('#v7TargetAvatar'), state.avatarImages[member.id] || member.photoURL, member.username);
     roleBadge($('#v7TargetRole'), member.role);
     $('#v7EditRole').value = member.role;
     const canChangeRole = state.role === 'dev';
